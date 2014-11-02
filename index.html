@@ -1,0 +1,20 @@
+<!doctype html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="styles.css" />
+    <script type='text/javascript' src='angular.min.js'></script>
+</head>
+
+<body ng-app="myapp">
+    <div ng-controller="myctrl">
+        <table class="board">
+            <tr ng-repeat="row in board">
+                <td ng-repeat="col in row track by $index" class="field" ng-class="{'is-alive': col === 1}"></td>
+            </tr>
+        </table>
+    </div>
+    <script type='text/javascript' src='app.js'></script>
+</body>
+
+</html>

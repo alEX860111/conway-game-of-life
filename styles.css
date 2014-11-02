@@ -1,0 +1,13 @@
+.board {
+    border-collapse: collapse;
+    margin-left: auto;
+    margin-right: auto;
+}
+.is-alive {
+    background-color: black;
+}
+.field {
+    width: 20px;
+    height: 20px;
+    border: 1px solid grey;
+}
