@@ -10,7 +10,7 @@
     <div ng-controller="myctrl">
         <table class="board">
             <tr ng-repeat="row in board">
-                <td ng-repeat="col in row track by $index" class="field" ng-class="{'is-alive': col === 1}"></td>
+                <td ng-repeat="cell in row track by $index" class="field" ng-class="{'is-alive': cell === 1}"></td>
             </tr>
         </table>
     </div>
