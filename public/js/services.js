@@ -41,32 +41,30 @@ function BoardService() {
   };
 
   this.getState = function(board, row, col) {
-    if (row >= board.length) {
-      row = 0;
-    }
-    if (row < 0) {
-      row = board.length - 1;
-    }
-    if (col >= board.length) {
-      col = 0;
-    }
-    if (col < 0) {
-      col = board.length - 1;
-    }
+    row = this.validateIndex(row, board);
+    col = this.validateIndex(col, board);
     return board[row][col];
   };
 
+  this.validateIndex = function(index, board) {
+    if (index >= board.length) {
+      return 0;
+    }
+    if (index < 0) {
+      return board.length - 1;
+    }
+    return index;
+
+  };
+
   this.getNextState = function(state, numNeighbors) {
-    var isAlive = (state === 1);
-    return isAlive ? this.getNextStateForAliveCell(numNeighbors) : this.getNextStateForDeadCell(numNeighbors);
-  };
-
-  this.getNextStateForAliveCell = function(numNeighbors) {
-    return ((numNeighbors === 2) || (numNeighbors === 3)) ? 1 : 0;
-  };
-
-  this.getNextStateForDeadCell = function(numNeighbors) {
-    return (numNeighbors === 3) ? 1 : 0;
+    if (numNeighbors === 3) {
+      return 1;
+    }
+    if (numNeighbors === 2) {
+      return state;
+    }
+    return 0;
   };
 
 }
