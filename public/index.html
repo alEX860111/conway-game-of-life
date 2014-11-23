@@ -6,16 +6,50 @@
   <link rel="stylesheet" href="css/styles.css" />
   <script type='text/javascript' src='bower_components/underscore/underscore-min.js'></script>
   <script type='text/javascript' src='bower_components/angular/angular.min.js'></script>
+
+  <title>Conway's Game of Life</title>
 </head>
 
 <body ng-app="myapp">
   <div ng-controller="myctrl">
+    <h2>Round:<span class="label label-default">{{round}}</span></h2>
     <table class="board">
       <tr ng-repeat="row in board">
-        <td ng-repeat="cell in row track by $index" class="field" ng-class="{'is-alive': cell}"></td>
+        <td ng-repeat="cell in row track by $index" class="field" ng-class="{'is-alive': cell}" ng-click="changeCellState($parent.$index, $index)"></td>
       </tr>
     </table>
-    <button type="button" ng-class="{'btn btn-success': !isActive, 'btn btn-danger': isActive}" ng-click="toggleActive()">{{buttonValue}}</button>
+
+    <div class="container">
+      <div class="row">
+
+        <div class="col-xs-6">
+          <div class="form-group">
+            <label>Board Size</label>
+            <input type="number" class="form-control" min="2" max="20" ng-model="boardSize" ng-disabled="isActive"></input>
+            <br />
+
+            <input type="button" class="form-control btn btn-info" ng-click="resetBoard()" ng-disabled="isActive" value="clear"></input>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-xs-6">
+          <div class="form-group">
+            <button type="button" ng-class="{'btn btn-success': !isActive, 'btn btn-danger': isActive}" ng-click="toggleActive()">{{buttonValue}}</button>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+
+
+
+
+
+
+
 
 
   </div>

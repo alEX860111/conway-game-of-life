@@ -18,6 +18,17 @@ function BoardService() {
     return array;
   }
 
+  this.resetBoard = function(board) {
+    var row;
+    var col;
+    for (row = 0; row < board.length; row++) {
+      for (col = 0; col < board.length; col++) {
+        board[row][col] = false;
+      }
+    }
+    return board;
+  };
+
   this.getNext = function(board) {
     var row;
     var col;
