@@ -1,7 +1,10 @@
 .board {
     border-collapse: collapse;
+    margin-top: 20px;
+    margin-bottom: 20px;
     margin-left: auto;
     margin-right: auto;
+    cursor: pointer;
 }
 .is-active {
   cursor: not-allowed;
@@ -13,4 +16,7 @@
     width: 20px;
     height: 20px;
     border: 1px solid grey;
+}
+.title {
+  text-align: center;
 }
