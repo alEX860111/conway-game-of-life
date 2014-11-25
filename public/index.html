@@ -13,7 +13,7 @@
 <body ng-app="myapp">
   <div ng-controller="myctrl">
     <h2>Round:<span class="label label-default">{{round}}</span></h2>
-    <table class="board">
+    <table class="board" ng-class="{'is-active': isActive}">
       <tr ng-repeat="row in board">
         <td ng-repeat="cell in row track by $index" class="field" ng-class="{'is-alive': cell}" ng-click="changeCellState($parent.$index, $index)"></td>
       </tr>

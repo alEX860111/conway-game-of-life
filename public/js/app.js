@@ -41,7 +41,9 @@ app.controller("myctrl", function($scope, $interval, boardService) {
   }
 
   $scope.changeCellState = function(row, col) {
-    $scope.board[row][col] = !$scope.board[row][col];
+    if (!$scope.isActive) {
+      $scope.board[row][col] = !$scope.board[row][col];
+    }
   };
 
   $scope.resetBoard = function() {
