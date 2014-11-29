@@ -1,22 +1,12 @@
 var app = angular.module("services", []);
 
-function BoardService() {
+function BoardService(arrayService) {
 
   this.createBoard = function(dim) {
-    return createArray(dim, function() {
-      return createArray(dim, function() {
-        return false;
-      });
+    return arrayService.createMatrix(dim, function() {
+      return false;
     });
   };
-
-  function createArray(dim, getValue) {
-    var array = [];
-    _.times(dim, function() {
-      array.push(getValue());
-    });
-    return array;
-  }
 
   this.resetBoard = function(board) {
     var row;
@@ -85,4 +75,22 @@ function BoardService() {
 
 }
 
-app.service("boardService", [BoardService]);
+function ArrayService() {
+  this.createArray = function(dim, getValue) {
+    var array = [];
+    _.times(dim, function() {
+      array.push(getValue());
+    });
+    return array;
+  };
+
+  this.createMatrix = function(dim, getValue) {
+    var that = this;
+    return that.createArray(dim, function() {
+      return that.createArray(dim, getValue);
+    });
+  };
+}
+
+app.service("arrayService", [ArrayService]);
+app.service("boardService", ["arrayService", BoardService]);
