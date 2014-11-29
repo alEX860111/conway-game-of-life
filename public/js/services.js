@@ -35,14 +35,16 @@ function BoardService(arrayService) {
 
   this.getNumberOfNeighbors = function(board, row, col) {
     var numNeighbors = 0;
-    numNeighbors += this.getState(board, row + 1, col);
-    numNeighbors += this.getState(board, row - 1, col);
-    numNeighbors += this.getState(board, row, col + 1);
-    numNeighbors += this.getState(board, row, col - 1);
-    numNeighbors += this.getState(board, row + 1, col + 1);
-    numNeighbors += this.getState(board, row + 1, col - 1);
-    numNeighbors += this.getState(board, row - 1, col + 1);
-    numNeighbors += this.getState(board, row - 1, col - 1);
+    var i;
+    var j;
+
+    for (i = row - 1; i <= row + 1; i++) {
+      for (j = col - 1; j <= col + 1; j++) {
+        if (i != row || j != col) {
+          numNeighbors += this.getState(board, i, j);
+        }
+      }
+    }
     return numNeighbors;
   };
 
