@@ -19,6 +19,19 @@ function BoardService(arrayService) {
     return board;
   };
 
+  this.allCellsAreDead = function(board) {
+    var row;
+    var col;
+    for (row = 0; row < board.length; row++) {
+      for (col = 0; col < board.length; col++) {
+        if (board[row][col] == true) {
+          return false;
+        }
+      }
+    }
+    return true;
+  };
+
   this.getNext = function(board) {
     var row;
     var col;
