@@ -7,15 +7,22 @@ app.controller("myctrl", function($scope, $interval, boardService) {
 
   var promise;
 
+  $scope.gameOver = false;
   $scope.isActive = false;
   $scope.round = 0;
 
   $scope.$watch('isActive', function() {
-    $scope.buttonValue = $scope.isActive ? "Stop" : "Start";
+    $scope.buttonValue = $scope.isActive ? "Pause" : "Play";
   });
 
   $scope.$watch('boardSize', function() {
     $scope.board = boardService.createBoard($scope.boardSize);
+    $scope.round = 0;
+    $scope.gameOver = false;
+  });
+
+  $scope.$watch('gameOver', function() {
+    stop();
   });
 
   $scope.toggleActive = function() {
@@ -30,14 +37,15 @@ app.controller("myctrl", function($scope, $interval, boardService) {
     promise = $interval(function() {
       $scope.board = boardService.getNext($scope.board);
       $scope.round++;
+      $scope.gameOver = boardService.allCellsAreDead($scope.board);
     }, 2000);
     $scope.isActive = true;
+    $scope.gameOver = false;
   }
 
   function stop() {
     $interval.cancel(promise);
     $scope.isActive = false;
-    $scope.round = 0;
   }
 
   $scope.changeCellState = function(row, col) {
@@ -48,6 +56,8 @@ app.controller("myctrl", function($scope, $interval, boardService) {
 
   $scope.resetBoard = function() {
     $scope.board = boardService.resetBoard($scope.board);
+    $scope.round = 0;
+    $scope.gameOver = false;
   };
 
 });
