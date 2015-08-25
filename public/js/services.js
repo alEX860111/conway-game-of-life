@@ -1,111 +1,92 @@
-var app = angular.module("services", []);
+angular.module("services")
+	.factory("boardService", ["arrayService", function(arrayService) {
+		return {
+			createBoard: function(dim) {
+				return arrayService.createMatrix(dim, function() {
+					return false;
+				});
+			},
 
-function BoardService(arrayService) {
+			resetBoard: function(board) {
+				var row;
+				var col;
+				for (row = 0; row < board.length; row++) {
+					for (col = 0; col < board.length; col++) {
+						board[row][col] = false;
+					}
+				}
+				return board;
+			},
 
-  this.createBoard = function(dim) {
-    return arrayService.createMatrix(dim, function() {
-      return false;
-    });
-  };
+			allCellsAreDead: function(board) {
+				var row;
+				var col;
+				for (row = 0; row < board.length; row++) {
+					for (col = 0; col < board.length; col++) {
+						if (board[row][col] == true) {
+							return false;
+						}
+					}
+				}
+				return true;
+			},
 
-  this.resetBoard = function(board) {
-    var row;
-    var col;
-    for (row = 0; row < board.length; row++) {
-      for (col = 0; col < board.length; col++) {
-        board[row][col] = false;
-      }
-    }
-    return board;
-  };
+			getNext: function(board) {
+				var row;
+				var col;
+				var next = this.createBoard(board.length);
+				for (row = 0; row < board.length; row++) {
+					for (col = 0; col < board.length; col++) {
+						var numNeighbors = this.getNumberOfNeighbors(board, row, col);
+						var cellSurvives = this.cellSurvives(board[row][col], numNeighbors);
+						next[row][col] = cellSurvives;
+					}
+				}
+				return next;
+			},
 
-  this.allCellsAreDead = function(board) {
-    var row;
-    var col;
-    for (row = 0; row < board.length; row++) {
-      for (col = 0; col < board.length; col++) {
-        if (board[row][col] == true) {
-          return false;
-        }
-      }
-    }
-    return true;
-  };
+			getNumberOfNeighbors: function(board, row, col) {
+				var numNeighbors = 0;
+				var i;
+				var j;
 
-  this.getNext = function(board) {
-    var row;
-    var col;
-    var next = this.createBoard(board.length);
-    for (row = 0; row < board.length; row++) {
-      for (col = 0; col < board.length; col++) {
-        var numNeighbors = this.getNumberOfNeighbors(board, row, col);
-        var cellSurvives = this.cellSurvives(board[row][col], numNeighbors);
-        next[row][col] = cellSurvives;
-      }
-    }
-    return next;
-  };
+				for (i = row - 1; i <= row + 1; i++) {
+					for (j = col - 1; j <= col + 1; j++) {
+						if (i != row || j != col) {
+							numNeighbors += this.getState(board, i, j);
+						}
+					}
+				}
+				return numNeighbors;
+			},
 
-  this.getNumberOfNeighbors = function(board, row, col) {
-    var numNeighbors = 0;
-    var i;
-    var j;
+			getState: function(board, row, col) {
+				row = this.validateIndex(row, board);
+				col = this.validateIndex(col, board);
+				return board[row][col] ? 1 : 0;
+			},
 
-    for (i = row - 1; i <= row + 1; i++) {
-      for (j = col - 1; j <= col + 1; j++) {
-        if (i != row || j != col) {
-          numNeighbors += this.getState(board, i, j);
-        }
-      }
-    }
-    return numNeighbors;
-  };
+			validateIndex: function(index, board) {
+				if (index >= board.length) {
+					return 0;
+				}
+				if (index < 0) {
+					return board.length - 1;
+				}
+				return index;
 
-  this.getState = function(board, row, col) {
-    row = this.validateIndex(row, board);
-    col = this.validateIndex(col, board);
-    return board[row][col] ? 1 : 0;
-  };
+			},
 
-  this.validateIndex = function(index, board) {
-    if (index >= board.length) {
-      return 0;
-    }
-    if (index < 0) {
-      return board.length - 1;
-    }
-    return index;
+			cellSurvives: function(isAlive, numNeighbors) {
+				if (numNeighbors === 3) {
+					return true;
+				}
+				if (numNeighbors === 2) {
+					return isAlive;
+				}
+				return false;
+			}
 
-  };
+		};
 
-  this.cellSurvives = function(isAlive, numNeighbors) {
-    if (numNeighbors === 3) {
-      return true;
-    }
-    if (numNeighbors === 2) {
-      return isAlive;
-    }
-    return false;
-  };
-
-}
-
-function ArrayService() {
-  this.createArray = function(dim, getValue) {
-    var array = [];
-    _.times(dim, function() {
-      array.push(getValue());
-    });
-    return array;
-  };
-
-  this.createMatrix = function(dim, getValue) {
-    var that = this;
-    return that.createArray(dim, function() {
-      return that.createArray(dim, getValue);
-    });
-  };
-}
-
-app.service("arrayService", [ArrayService]);
-app.service("boardService", ["arrayService", BoardService]);
+	}]);
