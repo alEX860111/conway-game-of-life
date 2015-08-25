@@ -1,27 +1,24 @@
 module.exports = function(config) {
-    config.set({
+	config.set({
 
-        basePath: '../',
+		basePath: "../",
 
-        files: [
-            'public/bower_components/angular/angular.min.js',
-            'public/bower_components/underscore/underscore-min.js',
-            'public/bower_components/angular-mocks/angular-mocks.js',
-            'public/js/**/*.js',
-            'test/unit/**/*.js'
-        ],
+		files: [
+			"public/bower_components/angular/angular.min.js",
+			"public/bower_components/underscore/underscore-min.js",
+			"public/bower_components/angular-mocks/angular-mocks.js",
+			"public/js/**/*.js",
+			"test/unit/**/*.js"
+		],
 
-        autoWatch: true,
+		frameworks: ["jasmine"],
 
-        frameworks: ['jasmine'],
+		browsers: ["Chrome"],
 
-        browsers: ['Chrome'],
+		plugins: [
+			"karma-chrome-launcher",
+			"karma-jasmine"
+		]
 
-        plugins: [
-            'karma-chrome-launcher',
-            'karma-phantomjs-launcher',
-            'karma-jasmine'
-        ]
-
-    });
+	});
 };
