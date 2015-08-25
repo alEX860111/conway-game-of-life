@@ -1,8 +1,8 @@
 angular.module("services")
-	.factory("boardService", ["arrayService", function(arrayService) {
+	.factory("boardService", ["matrixGenerator", function(matrixGenerator) {
 		return {
 			createBoard: function(dim) {
-				return arrayService.createMatrix(dim, function() {
+				return matrixGenerator.createMatrix(dim, function() {
 					return false;
 				});
 			},
