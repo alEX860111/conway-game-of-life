@@ -1,8 +1,6 @@
 angular.module("myapp", ["services"])
-	.controller("myctrl", function($scope, $interval, boardService) {
+	.controller("myctrl", function($scope, $interval, boardGenerator) {
 		$scope.boardSize = 5;
-
-		$scope.board = boardService.createBoard($scope.boardSize);
 
 		var promise;
 
@@ -10,17 +8,18 @@ angular.module("myapp", ["services"])
 		$scope.isActive = false;
 		$scope.round = 0;
 
-		$scope.$watch('isActive', function() {
+		$scope.$watch("isActive", function() {
 			$scope.buttonValue = $scope.isActive ? "Pause" : "Play";
 		});
 
-		$scope.$watch('boardSize', function() {
-			$scope.board = boardService.createBoard($scope.boardSize);
+		$scope.$watch("boardSize", function() {
+			$scope.board = boardGenerator.generateBoard($scope.boardSize);
+			$scope.indices = _.range($scope.boardSize);
 			$scope.round = 0;
 			$scope.gameOver = false;
 		});
 
-		$scope.$watch('gameOver', function() {
+		$scope.$watch("gameOver", function() {
 			stop();
 		});
 
@@ -34,9 +33,9 @@ angular.module("myapp", ["services"])
 
 		function start() {
 			promise = $interval(function() {
-				$scope.board = boardService.getNext($scope.board);
+				$scope.board = $scope.board.getNext();
 				$scope.round++;
-				$scope.gameOver = boardService.allCellsAreDead($scope.board);
+				$scope.gameOver = $scope.board.areAllCellsDead();
 			}, 2000);
 			$scope.isActive = true;
 			$scope.gameOver = false;
@@ -50,12 +49,12 @@ angular.module("myapp", ["services"])
 		$scope.changeCellState = function(row, col) {
 			if (!$scope.isActive) {
 				$scope.gameOver = false;
-				$scope.board[row][col] = !$scope.board[row][col];
+				$scope.board.getCell(row, col).isAlive = !$scope.board.getCell(row, col).isAlive;
 			}
 		};
 
 		$scope.resetBoard = function() {
-			$scope.board = boardService.resetBoard($scope.board);
+			$scope.board.reset();
 			$scope.round = 0;
 			$scope.gameOver = false;
 		};

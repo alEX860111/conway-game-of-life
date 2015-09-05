@@ -5,9 +5,13 @@ module.exports = function(config) {
 
 		files: [
 			"public/bower_components/angular/angular.min.js",
-			"public/bower_components/underscore/underscore-min.js",
+			"public/bower_components/lodash/lodash.min.js",
 			"public/bower_components/angular-mocks/angular-mocks.js",
-			"public/js/**/*.js",
+			"public/js/arrayGenerator.js",
+			"public/js/matrixGenerator.js",
+			"public/js/cellGenerator.js",
+			"public/js/boardGenerator.js",
+			"public/js/app.js",
 			"test/unit/**/*.js"
 		],
 

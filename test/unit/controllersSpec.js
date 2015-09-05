@@ -1,6 +1,6 @@
 describe('myctrl', function() {
 
-  var scope;
+/*  var scope;
 
   beforeEach(function() {
     module('myapp');
@@ -15,6 +15,6 @@ describe('myctrl', function() {
 
   it('', function() {
     expect(scope.board.length).toEqual(5);
-  });
+  });*/
 
 });
