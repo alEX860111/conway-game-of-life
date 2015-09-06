@@ -1,5 +1,5 @@
 angular.module("myapp", ["services"])
-	.controller("myctrl", function($scope, $interval, boardGenerator) {
+	.controller("gameCtrl", function($scope, $interval, boardGenerator) {
 		$scope.boardSize = 5;
 
 		var promise;
@@ -47,9 +47,11 @@ angular.module("myapp", ["services"])
 		}
 
 		$scope.changeCellState = function(row, col) {
+			var cell;
 			if (!$scope.isActive) {
 				$scope.gameOver = false;
-				$scope.board.getCell(row, col).isAlive = !$scope.board.getCell(row, col).isAlive;
+				cell = $scope.board.getCell(row, col);
+				cell.isAlive = !cell.isAlive;
 			}
 		};
 
