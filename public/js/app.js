@@ -1,5 +1,5 @@
 angular.module("myapp", ["services"])
-	.controller("gameCtrl", function($scope, $interval, boardGenerator) {
+	.controller("gameCtrl", ["$scope", "$timeout", "boardGenerator", function($scope, $timeout, boardGenerator) {
 		$scope.boardSize = 5;
 
 		var promise;
@@ -7,6 +7,11 @@ angular.module("myapp", ["services"])
 		$scope.gameOver = false;
 		$scope.isActive = false;
 		$scope.round = 0;
+
+		$scope.minUpdateInterval = 100;
+		$scope.maxUpdateInterval = 2000;
+		$scope.stepUpdateInterval = 100;
+		$scope.updateInterval = 1000;
 
 		$scope.$watch("isActive", function() {
 			$scope.buttonValue = $scope.isActive ? "Pause" : "Play";
@@ -32,17 +37,20 @@ angular.module("myapp", ["services"])
 		};
 
 		function start() {
-			promise = $interval(function() {
-				$scope.board = $scope.board.getNext();
-				$scope.round++;
-				$scope.gameOver = $scope.board.areAllCellsDead();
-			}, 2000);
 			$scope.isActive = true;
 			$scope.gameOver = false;
+			var loop = function() {
+				if ($scope.isActive) {
+					$scope.board = $scope.board.getNext();
+					$scope.round++;
+					$scope.gameOver = $scope.board.areAllCellsDead();
+					$timeout(loop, $scope.updateInterval);
+				}
+			};
+			loop();
 		}
 
 		function stop() {
-			$interval.cancel(promise);
 			$scope.isActive = false;
 		}
 
@@ -61,4 +69,4 @@ angular.module("myapp", ["services"])
 			$scope.gameOver = false;
 		};
 
-	});
+	}]);

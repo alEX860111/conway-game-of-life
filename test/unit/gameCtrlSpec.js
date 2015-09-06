@@ -37,10 +37,6 @@ describe("gameCtrl", function() {
 		spyOn(boardGenerator, "generateBoard").and.returnValue(board);
 	}));
 
-	beforeEach(inject(function(_$interval_) {
-		$interval = _$interval_;
-	}));
-
 	beforeEach(inject(function($rootScope, $controller) {
 		scope = $rootScope.$new();
 		$controller("gameCtrl", {
@@ -133,8 +129,6 @@ describe("gameCtrl", function() {
 
 		expect(scope.isActive).toEqual(true);
 		expect(scope.gameOver).toEqual(false);
-
-		$interval.flush(2000);
 
 		expect(scope.gameOver).toEqual(false);
 		expect(scope.round).toEqual(1);
