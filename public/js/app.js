@@ -2,8 +2,6 @@ angular.module("myapp", ["services"])
 	.controller("gameCtrl", ["$scope", "$timeout", "boardGenerator", function($scope, $timeout, boardGenerator) {
 		$scope.boardSize = 5;
 
-		var promise;
-
 		$scope.gameOver = false;
 		$scope.isActive = false;
 		$scope.round = 0;
