@@ -15,21 +15,14 @@ describe("gameCtrl", function() {
 	});
 
 	beforeEach(function() {
-		cell = {
-			isAlive: false
-		};
+		cell = jasmine.createSpyObj("cell", ["toggleIsAlive"]);
 	});
 
 	beforeEach(function() {
-		board = {
-			getCell: function() {},
-			reset: function() {},
-			areAllCellsDead: function() {},
-			getNext: function() {}
-		};
-		spyOn(board, "getCell").and.returnValue(cell);
-		spyOn(board, "reset");
-		spyOn(board, "getNext").and.returnValue(board);
+		board = jasmine.createSpyObj("board", ["getCell", "reset", "areAllCellsDead", "getNext"]);
+		board.getCell.and.returnValue(cell);
+		board.areAllCellsDead.and.returnValue(false);
+		board.getNext.and.returnValue(board);
 	});
 
 	beforeEach(inject(function(_boardGenerator_) {
@@ -93,20 +86,21 @@ describe("gameCtrl", function() {
 
 	it("changeCellState", function() {
 		scope.gameOver = true;
-
-		expect(cell.isAlive).toEqual(false);
+		expect(scope.board.getCell.calls.count()).toEqual(0);
+		expect(cell.toggleIsAlive.calls.count()).toEqual(0);
 
 		scope.changeCellState(2, 3);
 
 		expect(scope.gameOver).toEqual(false);
+
 		expect(scope.board.getCell).toHaveBeenCalledWith(2, 3);
 		expect(scope.board.getCell.calls.count()).toEqual(1);
-		expect(cell.isAlive).toEqual(true);
+
+		expect(cell.toggleIsAlive).toHaveBeenCalled();
+		expect(cell.toggleIsAlive.calls.count()).toEqual(1);
 	});
 
 	it("toggleActive", function() {
-		spyOn(board, "areAllCellsDead").and.returnValue(false);
-
 		scope.isActive = false;
 		scope.gameOver = true;
 

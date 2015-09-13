@@ -14,6 +14,11 @@ describe("cell", function() {
 		expect(cell.isAlive).toEqual(false);
 	});
 
+	it("should toggle the state correctly", function() {
+		expect(cell.toggleIsAlive()).toEqual(true);
+		expect(cell.isAlive).toEqual(true);
+	});
+
 	it("Any alive cell with fewer than two alive neighbours dies, as if caused by under-population.", function() {
 		cell.isAlive = true;
 		expect(cell.survives(0)).toEqual(false);

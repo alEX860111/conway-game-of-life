@@ -4,6 +4,10 @@ angular.module("services")
 			generateCell: function() {
 				return {
 					isAlive: false,
+					toggleIsAlive: function() {
+						this.isAlive = !this.isAlive;
+						return this.isAlive;
+					},
 					survives: function(numAliveNeighbors) {
 						if (numAliveNeighbors === 3) {
 							return true;
