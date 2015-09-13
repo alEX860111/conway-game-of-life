@@ -16,7 +16,7 @@
                 <h2 class="title">Round:<span class="label label-default">{{round}}</span></h2>
                 <table class="board" ng-class="{'is-active': isActive}">
                     <tr ng-repeat="rowIdx in indices">
-                        <td ng-repeat="colIdx in indices" class="field" ng-class="{'is-alive': board.getCell(rowIdx, colIdx).isAlive}" ng-click="changeCellState(rowIdx, colIdx)"></td>
+                        <td ng-repeat="colIdx in indices" class="field" ng-class="{'is-alive': board.getCell(rowIdx, colIdx).isAlive}" ng-click="changeCellState(rowIdx, colIdx)" ng-disabled="isActive"></td>
                     </tr>
                 </table>
                 <p class="game-over" ng-show="gameOver">Game Over :(</p>

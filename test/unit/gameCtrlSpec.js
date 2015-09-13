@@ -91,8 +91,7 @@ describe("gameCtrl", function() {
 		expect(scope.board.reset.calls.count()).toEqual(1);
 	});
 
-	it("changeCellState -- game is not active", function() {
-		scope.isActive = false;
+	it("changeCellState", function() {
 		scope.gameOver = true;
 
 		expect(cell.isAlive).toEqual(false);
@@ -103,20 +102,6 @@ describe("gameCtrl", function() {
 		expect(scope.board.getCell).toHaveBeenCalledWith(2, 3);
 		expect(scope.board.getCell.calls.count()).toEqual(1);
 		expect(cell.isAlive).toEqual(true);
-	});
-
-	it("changeCellState -- game is active", function() {
-		scope.isActive = true;
-		scope.gameOver = true;
-
-		expect(cell.isAlive).toEqual(false);
-
-		scope.changeCellState(2, 3);
-
-		expect(scope.gameOver).toEqual(true);
-		expect(scope.board.getCell).not.toHaveBeenCalledWith(2, 3);
-		expect(scope.board.getCell.calls.count()).toEqual(0);
-		expect(cell.isAlive).toEqual(false);
 	});
 
 	it("toggleActive", function() {
