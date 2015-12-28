@@ -53,8 +53,10 @@ angular.module("myapp", ["services"])
 		}
 
 		$scope.changeCellState = function(row, col) {
-			$scope.board.getCell(row, col).toggleIsAlive();
-			$scope.gameOver = false;
+			if (!$scope.isActive) {
+				$scope.board.getCell(row, col).toggleIsAlive();
+				$scope.gameOver = false;
+			}
 		};
 
 		$scope.resetBoard = function() {
