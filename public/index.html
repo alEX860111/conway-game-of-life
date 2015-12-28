@@ -2,59 +2,59 @@
 <html>
 
 <head>
-    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="css/styles.css" />
-    <script type="text/javascript" src="bower_components/lodash/lodash.min.js"></script>
-    <script type="text/javascript" src="bower_components/angular/angular.min.js"></script>
-    <title>Conway's Game of Life</title>
+	<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="css/styles.css" />
+	<script type="text/javascript" src="bower_components/lodash/lodash.min.js"></script>
+	<script type="text/javascript" src="bower_components/angular/angular.min.js"></script>
+	<title>Conway's Game of Life</title>
 </head>
 
 <body ng-app="myapp">
-    <div class="container" ng-controller="gameCtrl">
-        <div class="row">
-            <div class="col-xs-12 col-sm-6">
-                <h2 class="title">Round:<span class="label label-default">{{round}}</span></h2>
-                <table class="board" ng-class="{'is-active': isActive}">
-                    <tr ng-repeat="rowIdx in indices">
-                        <td ng-repeat="colIdx in indices" class="field" ng-class="{'is-alive': board.getCell(rowIdx, colIdx).isAlive}" ng-click="changeCellState(rowIdx, colIdx)" ng-disabled="isActive"></td>
-                    </tr>
-                </table>
-                <p class="game-over" ng-show="gameOver">Game Over :(</p>
-            </div>
-            <div class="col-xs-12 col-sm-6">
-                <div class="panel panel-primary">
-                    <div class="panel-heading">Controls</div>
-                    <div class="panel-body">
-                        <fieldset>
-                            <legend>Board</legend>
-                            <div class="form-group">
-                                <label>Board Size</label>
-                                <input type="number" class="form-control" min="2" max="10" ng-model="boardSize" ng-disabled="isActive"></input>
-                            </div>
-                            <div class="form-group">
-                                <input type="button" class="form-control btn btn-warning" ng-click="resetBoard()" ng-disabled="isActive" value="Reset"></input>
-                            </div>
-                        </fieldset>
-                        <fieldset>
-                            <legend>Game</legend>
-                            <div class="form-group">
-                                <label>Update Speed [ms]</label>
-                                <input type="number" class="form-control" min="{{minUpdateInterval}}" max="{{maxUpdateInterval}}" step="{{stepUpdateInterval}}" ng-model="updateInterval"></input>
-                            </div>
-                            <div class="form-group">
-                                <input type="button" class="form-control" ng-class="{'btn btn-success': !isActive, 'btn btn-danger': isActive}" ng-click="toggleActive()" ng-disabled="gameOver" value="{{buttonValue}}"></input>
-                            </div>
-                        </fieldset>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <script type="text/javascript" src="js/arrayGenerator.js"></script>
-    <script type="text/javascript" src="js/matrixGenerator.js"></script>
-    <script type="text/javascript" src="js/cellGenerator.js"></script>
-    <script type="text/javascript" src="js/boardGenerator.js"></script>
-    <script type="text/javascript" src="js/app.js"></script>
+	<div class="container" ng-controller="gameCtrl">
+		<div class="row">
+			<div class="col-xs-12 col-sm-6">
+				<h2 class="title">Round:<span class="label label-default">{{round}}</span></h2>
+				<table class="board" ng-class="{'is-active': isActive}">
+					<tr ng-repeat="rowIdx in indices">
+						<td ng-repeat="colIdx in indices" class="field" ng-class="{'is-alive': board.getCell(rowIdx, colIdx).isAlive}" ng-click="changeCellState(rowIdx, colIdx)" ng-disabled="isActive"></td>
+					</tr>
+				</table>
+				<p class="game-over" ng-show="gameOver">Game Over :(</p>
+			</div>
+			<div class="col-xs-12 col-sm-6">
+				<div class="panel panel-primary">
+					<div class="panel-heading">Controls</div>
+					<div class="panel-body">
+						<fieldset>
+							<legend>Board</legend>
+							<div class="form-group">
+								<label>Board Size</label>
+								<input type="number" class="form-control" min="2" max="10" ng-model="boardSize" ng-disabled="isActive"></input>
+							</div>
+							<div class="form-group">
+								<input type="button" class="form-control btn btn-warning" ng-click="resetBoard()" ng-disabled="isActive" value="Reset"></input>
+							</div>
+						</fieldset>
+						<fieldset>
+							<legend>Game</legend>
+							<div class="form-group">
+								<label>Update Speed [ms]</label>
+								<input type="number" class="form-control" min="{{minUpdateInterval}}" max="{{maxUpdateInterval}}" step="{{stepUpdateInterval}}" ng-model="updateInterval"></input>
+							</div>
+							<div class="form-group">
+								<input type="button" class="form-control" ng-class="{'btn btn-success': !isActive, 'btn btn-danger': isActive}" ng-click="toggleActive()" ng-disabled="gameOver" value="{{buttonValue}}"></input>
+							</div>
+						</fieldset>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript" src="js/arrayGenerator.js"></script>
+	<script type="text/javascript" src="js/matrixGenerator.js"></script>
+	<script type="text/javascript" src="js/cellGenerator.js"></script>
+	<script type="text/javascript" src="js/boardGenerator.js"></script>
+	<script type="text/javascript" src="js/app.js"></script>
 </body>
 
 </html>
