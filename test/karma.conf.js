@@ -11,6 +11,7 @@ module.exports = function(config) {
 			"public/js/matrixGenerator.js",
 			"public/js/cellGenerator.js",
 			"public/js/boardGenerator.js",
+			"public/js/boardService.js",
 			"public/js/app.js",
 			"test/unit/**/*.js"
 		],

@@ -44,7 +44,7 @@ describe("matrix", function() {
 			expect(matrix.getElement(2, 3)).toEqual(7);
 		});
 
-		it("should return the correct matrix element if column index is out of bounds", function() {
+		it("should return the correct matrix element if row index is out of bounds", function() {
 			expect(matrix.getElement(-1, 0)).toEqual(7);
 			expect(matrix.getElement(3, 0)).toEqual(1);
 			expect(matrix.getElement(-1, 1)).toEqual(8);

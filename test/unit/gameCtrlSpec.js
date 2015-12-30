@@ -4,7 +4,9 @@ describe("gameCtrl", function() {
 
 	var board;
 
-	var boardGenerator;
+	var boardOption;
+
+	var boardService;
 
 	var $interval;
 
@@ -19,15 +21,21 @@ describe("gameCtrl", function() {
 	});
 
 	beforeEach(function() {
-		board = jasmine.createSpyObj("board", ["getCell", "reset", "areAllCellsDead", "getNext"]);
+		board = jasmine.createSpyObj("board", ["getCell", "getSize", "reset", "areAllCellsDead", "getNext"]);
 		board.getCell.and.returnValue(cell);
+		board.getSize.and.returnValue(5);
 		board.areAllCellsDead.and.returnValue(false);
 		board.getNext.and.returnValue(board);
 	});
 
-	beforeEach(inject(function(_boardGenerator_) {
-		boardGenerator = _boardGenerator_;
-		spyOn(boardGenerator, "generateBoard").and.returnValue(board);
+	beforeEach(function() {
+		boardOption = jasmine.createSpyObj("boardOption", ["createBoard"]);
+		boardOption.createBoard.and.returnValue(board);
+	});
+
+	beforeEach(inject(function(_boardService_) {
+		boardService = _boardService_;
+		spyOn(boardService, "getBoards").and.returnValue([boardOption]);
 	}));
 
 	beforeEach(inject(function($rootScope, $controller) {
@@ -39,15 +47,13 @@ describe("gameCtrl", function() {
 	}));
 
 	it("defaults", function() {
-		expect(scope.boardSize).toEqual(5);
 		expect(scope.gameOver).toEqual(false);
 		expect(scope.isActive).toEqual(false);
 		expect(scope.round).toEqual(0);
 		expect(scope.buttonValue).toEqual("Play");
 		expect(scope.board).toBe(board);
 		expect(scope.indices).toEqual([0, 1, 2, 3, 4]);
-		expect(boardGenerator.generateBoard).toHaveBeenCalledWith(scope.boardSize);
-		expect(boardGenerator.generateBoard.calls.count()).toEqual(1);
+		expect(boardService.getBoards).toHaveBeenCalled();
 	});
 
 	it("toggle buttonValue", function() {
@@ -57,17 +63,6 @@ describe("gameCtrl", function() {
 		scope.isActive = false;
 		scope.$apply();
 		expect(scope.buttonValue).toEqual("Play");
-	});
-
-	it("change boardSize", function() {
-		scope.boardSize = 2;
-		scope.$apply();
-		expect(scope.gameOver).toEqual(false);
-		expect(scope.indices).toEqual([0, 1]);
-		expect(scope.round).toEqual(0);
-		expect(boardGenerator.generateBoard).toHaveBeenCalledWith(scope.boardSize);
-		expect(boardGenerator.generateBoard.calls.count()).toEqual(2);
-		expect(scope.board).toBe(board);
 	});
 
 	it("resetBoard", function() {

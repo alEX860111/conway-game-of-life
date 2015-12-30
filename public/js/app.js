@@ -1,7 +1,5 @@
 angular.module("myapp", ["services"])
-	.controller("gameCtrl", ["$scope", "$timeout", "boardGenerator", function($scope, $timeout, boardGenerator) {
-		$scope.boardSize = 5;
-
+	.controller("gameCtrl", ["$scope", "$timeout", "boardService", function($scope, $timeout, boardService) {
 		$scope.gameOver = false;
 		$scope.isActive = false;
 		$scope.round = 0;
@@ -15,12 +13,12 @@ angular.module("myapp", ["services"])
 			$scope.buttonValue = $scope.isActive ? "Pause" : "Play";
 		});
 
-		$scope.$watch("boardSize", function() {
-			$scope.board = boardGenerator.generateBoard($scope.boardSize);
-			$scope.indices = _.range($scope.boardSize);
+		$scope.loadBoard = function() {
+			$scope.board = $scope.selectedBoard.createBoard();
+			$scope.indices = _.range($scope.board.getSize());
 			$scope.round = 0;
 			$scope.gameOver = false;
-		});
+		};
 
 		$scope.$watch("gameOver", function() {
 			stop();
@@ -64,5 +62,10 @@ angular.module("myapp", ["services"])
 			$scope.round = 0;
 			$scope.gameOver = false;
 		};
+
+		$scope.boards = boardService.getBoards();
+
+		$scope.selectedBoard = $scope.boards[0];
+		$scope.loadBoard();
 
 	}]);

@@ -7,6 +7,9 @@ angular.module("services")
 
 	function createBoard(matrix) {
 		return {
+			getSize: function() {
+				return matrix.getSize();
+			},
 			getCell: function(rowIdx, colIdx) {
 				return matrix.getElement(rowIdx, colIdx);
 			},
