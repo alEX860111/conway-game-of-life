@@ -4,61 +4,15 @@ angular.module("services")
 	return {
 		getBoards: function() {
 			return [{
-				id: 0,
-				title: "EMPTY 2x2",
+				title: "Blinker",
 				createBoard: function() {
-					return boardGenerator.generateBoard(2);
+					var board = boardGenerator.generateBoard(5);
+					board.getCell(2, 1).isAlive = true;
+					board.getCell(2, 2).isAlive = true;
+					board.getCell(2, 3).isAlive = true;
+					return board;
 				}
 			}, {
-				id: 1,
-				title: "EMPTY 3x3",
-				createBoard: function() {
-					return boardGenerator.generateBoard(3);
-				}
-			}, {
-				id: 2,
-				title: "EMPTY 4x4",
-				createBoard: function() {
-					return boardGenerator.generateBoard(4);
-				}
-			}, {
-				id: 3,
-				title: "EMPTY 5x5",
-				createBoard: function() {
-					return boardGenerator.generateBoard(5);
-				}
-			}, {
-				id: 4,
-				title: "EMPTY 6x6",
-				createBoard: function() {
-					return boardGenerator.generateBoard(6);
-				}
-			}, {
-				id: 5,
-				title: "EMPTY 7x7",
-				createBoard: function() {
-					return boardGenerator.generateBoard(7);
-				}
-			}, {
-				id: 6,
-				title: "EMPTY 8x8",
-				createBoard: function() {
-					return boardGenerator.generateBoard(8);
-				}
-			}, {
-				id: 7,
-				title: "EMPTY 9x9",
-				createBoard: function() {
-					return boardGenerator.generateBoard(9);
-				}
-			}, {
-				id: 8,
-				title: "EMPTY 10x10",
-				createBoard: function() {
-					return boardGenerator.generateBoard(10);
-				}
-			}, {
-				id: 9,
 				title: "Glider",
 				createBoard: function() {
 					var board = boardGenerator.generateBoard(10);
@@ -70,17 +24,6 @@ angular.module("services")
 					return board;
 				}
 			}, {
-				id: 10,
-				title: "Blinker",
-				createBoard: function() {
-					var board = boardGenerator.generateBoard(5);
-					board.getCell(2, 1).isAlive = true;
-					board.getCell(2, 2).isAlive = true;
-					board.getCell(2, 3).isAlive = true;
-					return board;
-				}
-			}, {
-				id: 11,
 				title: "Pulsar",
 				createBoard: function() {
 					var board = boardGenerator.generateBoard(17);
@@ -142,6 +85,67 @@ angular.module("services")
 					board.getCell(14, 11).isAlive = true;
 					board.getCell(14, 12).isAlive = true;
 					return board;
+				}
+			}, {
+				title: "Gosper glider gun",
+				createBoard: function() {
+					var board = boardGenerator.generateBoard(38);
+					board.getCell(1, 25).isAlive = true;
+
+					board.getCell(2, 23).isAlive = true;
+					board.getCell(2, 25).isAlive = true;
+
+					board.getCell(3, 13).isAlive = true;
+					board.getCell(3, 14).isAlive = true;
+					board.getCell(3, 21).isAlive = true;
+					board.getCell(3, 22).isAlive = true;
+					board.getCell(3, 35).isAlive = true;
+					board.getCell(3, 36).isAlive = true;
+
+					board.getCell(4, 12).isAlive = true;
+					board.getCell(4, 16).isAlive = true;
+					board.getCell(4, 21).isAlive = true;
+					board.getCell(4, 22).isAlive = true;
+					board.getCell(4, 35).isAlive = true;
+					board.getCell(4, 36).isAlive = true;
+
+					board.getCell(5, 1).isAlive = true;
+					board.getCell(5, 2).isAlive = true;
+					board.getCell(5, 11).isAlive = true;
+					board.getCell(5, 17).isAlive = true;
+					board.getCell(5, 21).isAlive = true;
+					board.getCell(5, 22).isAlive = true;
+
+					board.getCell(6, 1).isAlive = true;
+					board.getCell(6, 2).isAlive = true;
+					board.getCell(6, 11).isAlive = true;
+					board.getCell(6, 15).isAlive = true;
+					board.getCell(6, 17).isAlive = true;
+					board.getCell(6, 18).isAlive = true;
+					board.getCell(6, 23).isAlive = true;
+					board.getCell(6, 25).isAlive = true;
+
+					board.getCell(7, 11).isAlive = true;
+					board.getCell(7, 17).isAlive = true;
+					board.getCell(7, 25).isAlive = true;
+
+					board.getCell(8, 12).isAlive = true;
+					board.getCell(8, 16).isAlive = true;
+
+					board.getCell(9, 13).isAlive = true;
+					board.getCell(9, 14).isAlive = true;
+
+					return board;
+				}
+			}, {
+				title: "Empty Small",
+				createBoard: function() {
+					return boardGenerator.generateBoard(5);
+				}
+			}, {
+				title: "Empty Large",
+				createBoard: function() {
+					return boardGenerator.generateBoard(10);
 				}
 			}];
 		}

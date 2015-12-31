@@ -22,6 +22,7 @@
 		<div class="row">
 			<div class="col-xs-12">
 				<h2 class="title">Round:&nbsp;<span class="label label-default">{{round}}</span></h2>
+				<div class="text-center"><small>{{1000 / updateInterval | number : 1}} rounds per second</small></div>
 				<table class="board" ng-class="{'is-active': isActive}">
 					<tr ng-repeat="rowIdx in indices">
 						<td ng-repeat="colIdx in indices" class="field" ng-class="{'is-alive': board.getCell(rowIdx, colIdx).isAlive}" ng-click="changeCellState(rowIdx, colIdx)" ng-disabled="isActive"></td>
@@ -29,11 +30,11 @@
 				</table>
 				<div class="text-center">
 					<div class="btn-group">
-						<button type="button" title="Load Board" class="btn btn-lg btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							{{selectedBoard.title}}&nbsp;<span class="caret"></span>
+						<button type="button" title="Load Board" class="btn btn-lg btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ng-disabled="isActive">
+							{{selectedBoard.title || 'Load Board'}}&nbsp;<span class="caret"></span>
 						</button>
 						<ul class="dropdown-menu">
-							<li ng-repeat="board in boards track by board.id" ng-click="loadBoard(board)"><a href="#">{{board.title}}</a></li>
+							<li ng-repeat="board in boards track by $index" ng-click="loadBoard(board)"><a href="#">{{board.title}}</a></li>
 						</ul>
 					</div>
 					<button type="button" title="Clear" class="btn btn-lg btn-warning" ng-click="resetBoard()" ng-disabled="isActive"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>

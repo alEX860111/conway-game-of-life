@@ -6,16 +6,22 @@
     margin-right: auto;
     cursor: pointer;
 }
-.is-active {
+.board.is-active {
   cursor: not-allowed;
 }
-.is-alive {
+.field.is-alive {
     background-color: black;
 }
 .field {
     width: 30px;
     height: 30px;
     border: 1px solid grey;
+}
+.board:not(.is-active) .field:hover {
+  background-color: black;
+}
+.board:not(.is-active) .field.is-alive:hover {
+  background-color: rgba(0,0,0,0.1);
 }
 .title {
   text-align: center;
@@ -30,4 +36,7 @@
 }
 input {
   pointer-events: all !important;
+}
+body {
+  padding-bottom: 50px;
 }
