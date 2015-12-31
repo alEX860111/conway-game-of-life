@@ -4,6 +4,8 @@
 <head>
 	<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css" />
 	<link rel="stylesheet" href="css/styles.css" />
+	<script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
+	<script type="text/javascript" src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="bower_components/lodash/lodash.min.js"></script>
 	<script type="text/javascript" src="bower_components/angular/angular.min.js"></script>
 	<script type="text/javascript" src="js/arrayGenerator.js"></script>
@@ -18,47 +20,30 @@
 <body ng-app="myapp">
 	<div class="container" ng-controller="gameCtrl">
 		<div class="row">
-			<div class="col-xs-12 col-sm-6">
-				<h2 class="title">Round:<span class="label label-default">{{round}}</span></h2>
+			<div class="col-xs-12">
+				<h2 class="title">Round:&nbsp;<span class="label label-default">{{round}}</span></h2>
 				<table class="board" ng-class="{'is-active': isActive}">
 					<tr ng-repeat="rowIdx in indices">
 						<td ng-repeat="colIdx in indices" class="field" ng-class="{'is-alive': board.getCell(rowIdx, colIdx).isAlive}" ng-click="changeCellState(rowIdx, colIdx)" ng-disabled="isActive"></td>
 					</tr>
 				</table>
+				<div class="text-center">
+					<div class="btn-group">
+						<button type="button" title="Load Board" class="btn btn-lg btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							{{selectedBoard.title}}&nbsp;<span class="caret"></span>
+						</button>
+						<ul class="dropdown-menu">
+							<li ng-repeat="board in boards track by board.id" ng-click="loadBoard(board)"><a href="#">{{board.title}}</a></li>
+						</ul>
+					</div>
+					<button type="button" title="Clear" class="btn btn-lg btn-warning" ng-click="resetBoard()" ng-disabled="isActive"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
+					<button type="button" title="Slower" class="btn btn-lg btn-info" ng-click="decreaseSpeed()" ng-disabled="!isActive || updateInterval === maxUpdateInterval"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span></button>
+					<button type="button" ng-attr-title="{{buttonValue}}" class="btn btn-lg" ng-class="{'btn-success': !isActive, 'btn-danger': isActive}" ng-click="toggleActive()" ng-disabled="gameOver"><span class="glyphicon" ng-class="{'glyphicon-play': !isActive, 'glyphicon-pause': isActive}" aria-hidden="true"></span></button>
+					<button type="button" title="Faster" class="btn btn-lg btn-info" ng-click="increaseSpeed()" ng-disabled="!isActive || updateInterval === minUpdateInterval"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
+				</div>
 				<p class="game-over" ng-show="gameOver">Game Over :(</p>
 			</div>
-			<div class="col-xs-12 col-sm-6">
-				<div class="panel panel-primary">
-					<div class="panel-heading">Controls</div>
-					<div class="panel-body">
-						<fieldset>
-							<legend>Board</legend>
-							<div class="form-group">
-								<label>Boards</label>
-								<select class="form-control" ng-options="board.title for board in boards track by board.id" ng-model="selectedBoard" ng-disabled="isActive"></select>
-							</div>
-							<div class="form-group">
-								<input type="button" class="form-control btn btn-info" ng-click="loadBoard()" ng-disabled="isActive" value="Load Board"></input>
-							</div>
-						</fieldset>
-						<fieldset>
-							<legend>Game</legend>
-							<div class="form-group">
-								<label>Update Speed [ms]</label>
-								<input type="number" class="form-control" min="{{minUpdateInterval}}" max="{{maxUpdateInterval}}" step="{{stepUpdateInterval}}" ng-model="updateInterval"></input>
-							</div>
-							<div class="form-group">
-								<input type="button" class="form-control btn btn-warning" ng-click="resetBoard()" ng-disabled="isActive" value="Clear"></input>
-							</div>
-							<div class="form-group">
-								<input type="button" class="form-control" ng-class="{'btn btn-success': !isActive, 'btn btn-danger': isActive}" ng-click="toggleActive()" ng-disabled="gameOver" value="{{buttonValue}}"></input>
-							</div>
-						</fieldset>
-					</div>
-				</div>
-			</div>
 		</div>
-	</div>
 </body>
 
 </html>

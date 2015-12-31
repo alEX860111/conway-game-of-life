@@ -13,8 +13,19 @@ angular.module("myapp", ["services"])
 			$scope.buttonValue = $scope.isActive ? "Pause" : "Play";
 		});
 
-		$scope.loadBoard = function() {
-			$scope.board = $scope.selectedBoard.createBoard();
+		$scope.increaseSpeed = function() {
+			var newUpdateInterval = $scope.updateInterval - $scope.stepUpdateInterval;
+			$scope.updateInterval = (newUpdateInterval < $scope.minUpdateInterval) ? $scope.minUpdateInterval : newUpdateInterval;
+		};
+
+		$scope.decreaseSpeed = function() {
+			var newUpdateInterval = $scope.updateInterval + $scope.stepUpdateInterval;
+			$scope.updateInterval = (newUpdateInterval > $scope.maxUpdateInterval) ? $scope.maxUpdateInterval : newUpdateInterval;
+		};
+
+		$scope.loadBoard = function(board) {
+			$scope.selectedBoard = board;
+			$scope.board = board.createBoard();
 			$scope.indices = _.range($scope.board.getSize());
 			$scope.round = 0;
 			$scope.gameOver = false;
@@ -65,7 +76,6 @@ angular.module("myapp", ["services"])
 
 		$scope.boards = boardService.getBoards();
 
-		$scope.selectedBoard = $scope.boards[0];
-		$scope.loadBoard();
+		$scope.loadBoard($scope.boards[0]);
 
 	}]);
