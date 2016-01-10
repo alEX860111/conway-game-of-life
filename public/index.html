@@ -21,14 +21,9 @@
 	<div class="container" ng-controller="gameCtrl">
 		<div class="row">
 			<div class="col-xs-12">
-				<h2 class="title">Round:&nbsp;<span class="label label-default">{{round}}</span></h2>
-				<div class="text-center"><small>{{1000 / updateInterval | number : 1}} rounds per second</small></div>
-				<table class="board" ng-class="{'is-active': isActive}">
-					<tr ng-repeat="rowIdx in indices">
-						<td ng-repeat="colIdx in indices" class="field" ng-class="{'is-alive': board.getCell(rowIdx, colIdx).isAlive}" ng-click="changeCellState(rowIdx, colIdx)" ng-disabled="isActive"></td>
-					</tr>
-				</table>
-				<div class="text-center">
+				<h2 class="text-center">Round:&nbsp;<span class="label label-default">{{round}}</span><span class="label label-default"></span></h2>
+				<h5 class="text-center">{{roundsPerSecond | number}} rounds per second</h5>
+				<div class="text-center controls">
 					<div class="btn-group">
 						<button type="button" title="Load Board" class="btn btn-lg btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ng-disabled="isActive">
 							{{selectedBoard.title || 'Load Board'}}&nbsp;<span class="caret"></span>
@@ -38,11 +33,22 @@
 						</ul>
 					</div>
 					<button type="button" title="Clear" class="btn btn-lg btn-warning" ng-click="resetBoard()" ng-disabled="isActive"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
-					<button type="button" title="Slower" class="btn btn-lg btn-info" ng-click="decreaseSpeed()" ng-disabled="!isActive || updateInterval === maxUpdateInterval"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span></button>
 					<button type="button" ng-attr-title="{{buttonValue}}" class="btn btn-lg" ng-class="{'btn-success': !isActive, 'btn-danger': isActive}" ng-click="toggleActive()" ng-disabled="gameOver"><span class="glyphicon" ng-class="{'glyphicon-play': !isActive, 'glyphicon-pause': isActive}" aria-hidden="true"></span></button>
-					<button type="button" title="Faster" class="btn btn-lg btn-info" ng-click="increaseSpeed()" ng-disabled="!isActive || updateInterval === minUpdateInterval"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
+					<div class="btn-group">
+						<button type="button" title="Slower" class="btn btn-lg btn-info" ng-click="decreaseSpeed()" ng-disabled="roundsPerSecond === minRoundsPerSecond"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span></button>
+						<button type="button" title="Faster" class="btn btn-lg btn-info" ng-click="increaseSpeed()" ng-disabled="roundsPerSecond === maxRoundsPerSecond"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
+					</div>
+					<div class="btn-group">
+						<button type="button" title="Zoom-Out" class="btn btn-lg btn-info" ng-click="zoomOut()" ng-disabled="size === minSize"><span class="glyphicon glyphicon-zoom-out" aria-hidden="true"></span></button>
+						<button type="button" title="Zoom-In" class="btn btn-lg btn-info" ng-click="zoomIn()" ng-disabled="size === maxSize"><span class="glyphicon glyphicon-zoom-in" aria-hidden="true"></span></button>
+					</div>
 				</div>
-				<p class="game-over" ng-show="gameOver">Game Over :(</p>
+				<table class="board" ng-class="{'is-active': isActive}">
+					<tr ng-repeat="rowIdx in indices">
+						<td ng-repeat="colIdx in indices" class="field" ng-attr-style="width: {{size}}px; height: {{size}}px" ng-class="{'is-alive': board.getCell(rowIdx, colIdx).isAlive}" ng-click="changeCellState(rowIdx, colIdx)" ng-disabled="isActive"></td>
+					</tr>
+				</table>
+				<h5 class="game-over" ng-show="gameOver"><span class="label label-danger">Game Over</span></h5>
 			</div>
 		</div>
 </body>

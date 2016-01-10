@@ -1,3 +1,7 @@
+.controls {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
 .board {
     border-collapse: collapse;
     margin-top: 20px;
@@ -13,8 +17,6 @@
     background-color: black;
 }
 .field {
-    width: 30px;
-    height: 30px;
     border: 1px solid grey;
 }
 .board:not(.is-active) .field:hover {
@@ -22,9 +24,6 @@
 }
 .board:not(.is-active) .field.is-alive:hover {
   background-color: rgba(0,0,0,0.1);
-}
-.title {
-  text-align: center;
 }
 .game-over {
   text-align: center;
