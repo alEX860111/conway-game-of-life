@@ -62,8 +62,6 @@ describe("board", function() {
 
 			var nextBoard = board.getNext();
 
-			expect(nextBoard).not.toBe(board);
-
 			expect([
 				[false, false, false, false, false],
 				[false, false, false, false, false],

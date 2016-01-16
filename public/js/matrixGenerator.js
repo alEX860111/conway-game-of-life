@@ -7,12 +7,15 @@ angular.module("services")
 					return arrayGenerator.generateArray(size, createElement);
 				});
 
+				const MIN_IDX = 0;
+				const MAX_IDX = size - 1;
+
 				function confineIndex(idx) {
-					if (idx >= size) {
-						return 0;
+					if (idx > MAX_IDX) {
+						return MIN_IDX;
 					}
-					if (idx < 0) {
-						return size - 1;
+					if (idx < MIN_IDX) {
+						return MAX_IDX;
 					}
 					return idx;
 				}
