@@ -6,8 +6,8 @@
 	"dependencies": {
 		"angular": "1.4.8",
 		"angular-mocks": "1.4.8",
-		"lodash": "3.10.1",
-		"bootstrap": "3.3.5",
-		"jquery": "2.1.4"
+		"lodash": "4.0.0",
+		"bootstrap": "3.3.6",
+		"jquery": "2.2.0"
 	}
 }

@@ -5,7 +5,7 @@ module.exports = function(config) {
 
 		files: [
 			"public/bower_components/angular/angular.min.js",
-			"public/bower_components/lodash/lodash.min.js",
+			"public/bower_components/lodash/dist/lodash.min.js",
 			"public/bower_components/angular-mocks/angular-mocks.js",
 			"public/js/arrayGenerator.js",
 			"public/js/matrixGenerator.js",
