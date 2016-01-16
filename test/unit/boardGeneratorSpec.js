@@ -1,10 +1,11 @@
 describe("board", function() {
 
-	function getStates(board, size) {
+	function getStates(board) {
 		var states = [];
 		var row;
 		var rowIndex;
 		var colIndex;
+		var size = board.getSize();
 		for (rowIndex = 0; rowIndex < size; rowIndex++) {
 			row = [];
 			for (colIndex = 0; colIndex < size; colIndex++) {
@@ -21,28 +22,28 @@ describe("board", function() {
 		module("services");
 	});
 
-	beforeEach(inject(function(_boardGenerator_) {
-		board = _boardGenerator_.generateBoard(5);
+	beforeEach(inject(function(boardGenerator) {
+		board = boardGenerator.generateBoard(5);
 	}));
 
-	it("should reset the board", function() {
-		expect([
-			[false, false, false, false, false],
-			[false, false, false, false, false],
-			[false, false, false, false, false],
-			[false, false, false, false, false],
-			[false, false, false, false, false]
-		]).toEqual(getStates(board, 5));
+	describe("boardGenerator", function() {
+		it("should generate a board", function() {
+			expect([
+				[false, false, false, false, false],
+				[false, false, false, false, false],
+				[false, false, false, false, false],
+				[false, false, false, false, false],
+				[false, false, false, false, false]
+			]).toEqual(getStates(board));
+		});
 	});
 
 	describe("reset", function() {
-
 		it("should reset the board", function() {
 			expect(board.areAllCellsDead()).toEqual(true);
 			board.getCell(0, 0).isAlive = true;
 			expect(board.areAllCellsDead()).toEqual(false);
 		});
-
 	});
 
 	describe("getNext", function() {
@@ -58,7 +59,7 @@ describe("board", function() {
 				[false, false, true, false, false],
 				[false, false, true, false, false],
 				[false, false, false, false, false]
-			]).toEqual(getStates(board, 5));
+			]).toEqual(getStates(board));
 
 			var nextBoard = board.getNext();
 
@@ -68,7 +69,7 @@ describe("board", function() {
 				[false, true, true, true, false],
 				[false, false, false, false, false],
 				[false, false, false, false, false]
-			]).toEqual(getStates(nextBoard, 5));
+			]).toEqual(getStates(nextBoard));
 		});
 
 	});

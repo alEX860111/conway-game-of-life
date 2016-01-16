@@ -1,5 +1,4 @@
 angular.module("services")
-
 .factory("boardGenerator", ["matrixGenerator", "cellGenerator", function(matrixGenerator, cellGenerator) {
 	return {
 		generateBoard: function (size) {
