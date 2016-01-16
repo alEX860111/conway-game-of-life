@@ -9,9 +9,6 @@ angular.module("myapp", ["services"])
 		$scope.maxSize = 100;
 		$scope.size = 30;
 
-		var stepUpdateInterval = 100;
-		$scope.minUpdateInterval = 100;
-		$scope.maxUpdateInterval = 2000;
 		$scope.updateInterval = 1000;
 
 		var stepRoundsPerSecond = 1;
