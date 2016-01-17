@@ -26,20 +26,18 @@ describe("board", function() {
 		board = boardGenerator.generateBoard(5);
 	}));
 
-	describe("boardGenerator", function() {
-		it("should generate a board", function() {
-			expect([
-				[false, false, false, false, false],
-				[false, false, false, false, false],
-				[false, false, false, false, false],
-				[false, false, false, false, false],
-				[false, false, false, false, false]
-			]).toEqual(getStates(board));
-		});
+	it("all cells should be dead at the beginning", function() {
+		expect([
+			[false, false, false, false, false],
+			[false, false, false, false, false],
+			[false, false, false, false, false],
+			[false, false, false, false, false],
+			[false, false, false, false, false]
+		]).toEqual(getStates(board));
 	});
 
-	describe("reset", function() {
-		it("should reset the board", function() {
+	describe("areAllCellsDead()", function() {
+		it("should return if all cells are dead or not", function() {
 			expect(board.areAllCellsDead()).toEqual(true);
 			board.getCell(0, 0).isAlive = true;
 			expect(board.areAllCellsDead()).toEqual(false);
@@ -61,7 +59,11 @@ describe("board", function() {
 				[false, false, false, false, false]
 			]).toEqual(getStates(board));
 
+			expect(board.getRound()).toEqual(0);
+
 			var nextBoard = board.getNext();
+
+			expect(board.getRound()).toEqual(1);
 
 			expect([
 				[false, false, false, false, false],

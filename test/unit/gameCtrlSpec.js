@@ -49,7 +49,6 @@ describe("gameCtrl", function() {
 	it("defaults", function() {
 		expect(scope.gameOver).toEqual(false);
 		expect(scope.isActive).toEqual(false);
-		expect(scope.round).toEqual(0);
 		expect(scope.buttonValue).toEqual("Play");
 		expect(scope.board).toBe(board);
 		expect(scope.indices).toEqual([0, 1, 2, 3, 4]);
@@ -66,13 +65,11 @@ describe("gameCtrl", function() {
 	});
 
 	it("resetBoard", function() {
-		scope.round = 42;
 		scope.gameOver = true;
 		expect(scope.board.reset.calls.count()).toEqual(0);
 
 		scope.resetBoard();
 
-		expect(scope.round).toEqual(0);
 		expect(scope.gameOver).toEqual(false);
 
 		expect(scope.board.reset).toHaveBeenCalled();
@@ -105,7 +102,6 @@ describe("gameCtrl", function() {
 		expect(scope.gameOver).toEqual(false);
 
 		expect(scope.gameOver).toEqual(false);
-		expect(scope.round).toEqual(1);
 		expect(scope.board.getNext).toHaveBeenCalled();
 		expect(scope.board.areAllCellsDead).toHaveBeenCalled();
 	});

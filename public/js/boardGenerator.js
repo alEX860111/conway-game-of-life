@@ -8,7 +8,11 @@ angular.module("game.of.life.core")
 
 			var matrix = generateMatrix(size);
 			var nextMatrix = generateMatrix(size);
+			var round = 0;
 			return {
+				getRound: function() {
+					return round;
+				},
 				getSize: function() {
 					return matrix.getSize();
 				},
@@ -19,6 +23,7 @@ angular.module("game.of.life.core")
 					matrix.visitAllElements(function(cell) {
 						cell.isAlive = false;
 					});
+					round = 0;
 				},
 				areAllCellsDead: function() {
 					var result = true;
@@ -42,6 +47,7 @@ angular.module("game.of.life.core")
 					});
 					matrix = nextMatrix;
 					nextMatrix = tmpMatrix;
+					round++;
 					return this;
 				}
 			};

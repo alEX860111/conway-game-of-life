@@ -22,7 +22,7 @@
 	<div class="container" ng-controller="gameCtrl">
 		<div class="row">
 			<div class="col-xs-12">
-				<h2 class="text-center">Round:&nbsp;<span class="label label-default">{{round}}</span><span class="label label-default"></span></h2>
+				<h2 class="text-center">Round:&nbsp;<span class="label label-default">{{board.getRound()}}</span><span class="label label-default"></span></h2>
 				<h5 class="text-center">{{roundsPerSecond | number}} rounds per second</h5>
 				<div class="text-center controls">
 					<div class="btn-group">

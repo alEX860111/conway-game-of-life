@@ -2,7 +2,6 @@ angular.module("myapp", ["game.of.life.core"])
 	.controller("gameCtrl", ["$scope", "$timeout", "boardService", function($scope, $timeout, boardService) {
 		$scope.gameOver = false;
 		$scope.isActive = false;
-		$scope.round = 0;
 		$scope.size = 30;
 		$scope.roundsPerSecond = 3;
 
@@ -18,7 +17,6 @@ angular.module("myapp", ["game.of.life.core"])
 			$scope.selectedBoard = board;
 			$scope.board = board.createBoard();
 			$scope.indices = _.range($scope.board.getSize());
-			$scope.round = 0;
 			$scope.gameOver = false;
 		};
 
@@ -40,7 +38,6 @@ angular.module("myapp", ["game.of.life.core"])
 			var loop = function() {
 				if ($scope.isActive) {
 					$scope.board = $scope.board.getNext();
-					$scope.round++;
 					$scope.gameOver = $scope.board.areAllCellsDead();
 					$timeout(loop, $scope.updateInterval);
 				}
@@ -52,10 +49,10 @@ angular.module("myapp", ["game.of.life.core"])
 			$scope.isActive = false;
 		}
 
-		$scope.changeCellState = function(row, col) {
+		$scope.changeCellState = function(rowIdx, colIdx) {
 			if (!$scope.isActive) {
 				$scope.selectedBoard = undefined;
-				$scope.board.getCell(row, col).toggleIsAlive();
+				$scope.board.getCell(rowIdx, colIdx).toggleIsAlive();
 				$scope.gameOver = false;
 			}
 		};
@@ -63,7 +60,6 @@ angular.module("myapp", ["game.of.life.core"])
 		$scope.resetBoard = function() {
 			$scope.selectedBoard = undefined;
 			$scope.board.reset();
-			$scope.round = 0;
 			$scope.gameOver = false;
 		};
 
