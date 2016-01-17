@@ -25,11 +25,6 @@
 .board:not(.is-active) .field.is-alive:hover {
   background-color: rgba(0,0,0,0.1);
 }
-.game-over {
-  text-align: center;
-  font-weight: bold;
-  color: red;
-}
 .panel {
   margin-top: 20px;
 }
