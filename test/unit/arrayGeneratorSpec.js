@@ -3,7 +3,7 @@ describe("arrayGenerator", function() {
 	var arrayGenerator;
 
 	beforeEach(function() {
-		module("services");
+		module("game.of.life.core");
 	});
 
 	beforeEach(inject(function(_arrayGenerator_) {

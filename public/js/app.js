@@ -1,19 +1,9 @@
-angular.module("myapp", ["services"])
+angular.module("myapp", ["game.of.life.core"])
 	.controller("gameCtrl", ["$scope", "$timeout", "boardService", function($scope, $timeout, boardService) {
 		$scope.gameOver = false;
 		$scope.isActive = false;
 		$scope.round = 0;
-
-		var stepSize = 10;
-		$scope.minSize = 10;
-		$scope.maxSize = 100;
 		$scope.size = 30;
-
-		$scope.updateInterval = 1000;
-
-		var stepRoundsPerSecond = 1;
-		$scope.minRoundsPerSecond = 1;
-		$scope.maxRoundsPerSecond = 10;
 		$scope.roundsPerSecond = 3;
 
 		$scope.$watch("roundsPerSecond", function() {
@@ -23,26 +13,6 @@ angular.module("myapp", ["services"])
 		$scope.$watch("isActive", function() {
 			$scope.buttonValue = $scope.isActive ? "Pause" : "Play";
 		});
-
-		$scope.increaseSpeed = function() {
-			var newRoundsPerSecond = $scope.roundsPerSecond + stepRoundsPerSecond;
-			$scope.roundsPerSecond = (newRoundsPerSecond > $scope.maxRoundsPerSecond) ? $scope.maxRoundsPerSecond : newRoundsPerSecond;
-		};
-
-		$scope.decreaseSpeed = function() {
-			var newRoundsPerSecond = $scope.roundsPerSecond - stepRoundsPerSecond;
-			$scope.roundsPerSecond = (newRoundsPerSecond < $scope.minRoundsPerSecond) ? $scope.minRoundsPerSecond : newRoundsPerSecond;
-		};
-
-		$scope.zoomOut = function() {
-			var newSize = $scope.size - stepSize;
-			$scope.size = (newSize < $scope.minSize) ? $scope.minSize : newSize;
-		};
-
-		$scope.zoomIn = function() {
-			var newSize = $scope.size + stepSize;
-			$scope.size = (newSize > $scope.maxSize) ? $scope.maxSize : newSize;
-		};
 
 		$scope.loadBoard = function(board) {
 			$scope.selectedBoard = board;

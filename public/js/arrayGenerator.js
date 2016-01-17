@@ -1,4 +1,4 @@
-angular.module("services", [])
+angular.module("game.of.life.core", [])
 	.factory("arrayGenerator", [function() {
 		return {
 			generateArray: function(length, getElement) {

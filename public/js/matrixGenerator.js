@@ -1,4 +1,4 @@
-angular.module("services")
+angular.module("game.of.life.core")
 	.factory("matrixGenerator", ["arrayGenerator", function(arrayGenerator) {
 		return {
 			generateMatrix: function(size, createElement) {

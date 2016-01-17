@@ -3,7 +3,7 @@ describe("matrix", function() {
 	var matrix;
 
 	beforeEach(function() {
-		module("services");
+		module("game.of.life.core");
 	});
 
 	beforeEach(inject(function(_matrixGenerator_) {

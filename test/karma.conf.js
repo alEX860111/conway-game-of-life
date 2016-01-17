@@ -13,6 +13,7 @@ module.exports = function(config) {
 			"public/js/boardGenerator.js",
 			"public/js/boardService.js",
 			"public/js/app.js",
+			"public/js/stepControl.js",
 			"test/unit/**/*.js"
 		],
 

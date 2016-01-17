@@ -3,7 +3,7 @@ describe("cell", function() {
 	var cell;
 
 	beforeEach(function() {
-		module("services");
+		module("game.of.life.core");
 	});
 
 	beforeEach(inject(function(_cellGenerator_) {

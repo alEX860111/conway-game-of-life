@@ -19,7 +19,7 @@ describe("board", function() {
 	var board;
 
 	beforeEach(function() {
-		module("services");
+		module("game.of.life.core");
 	});
 
 	beforeEach(inject(function(boardGenerator) {

@@ -1,4 +1,4 @@
-angular.module("services")
+angular.module("game.of.life.core")
 
 .factory("boardService", ["boardGenerator", function(boardGenerator) {
 	return {
