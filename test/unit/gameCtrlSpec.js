@@ -1,12 +1,6 @@
 describe("gameCtrl", function() {
 
-	var cell;
-
-	var board;
-
-	var boardOption;
-
-	var boardService;
+	var gameService;
 
 	var $interval;
 
@@ -16,26 +10,10 @@ describe("gameCtrl", function() {
 		module("myapp");
 	});
 
-	beforeEach(function() {
-		cell = jasmine.createSpyObj("cell", ["toggleIsAlive"]);
-	});
-
-	beforeEach(function() {
-		board = jasmine.createSpyObj("board", ["getCell", "getSize", "reset", "areAllCellsDead", "getNext"]);
-		board.getCell.and.returnValue(cell);
-		board.getSize.and.returnValue(5);
-		board.areAllCellsDead.and.returnValue(false);
-		board.getNext.and.returnValue(board);
-	});
-
-	beforeEach(function() {
-		boardOption = jasmine.createSpyObj("boardOption", ["createBoard"]);
-		boardOption.createBoard.and.returnValue(board);
-	});
-
-	beforeEach(inject(function(_boardService_) {
-		boardService = _boardService_;
-		spyOn(boardService, "getBoards").and.returnValue([boardOption]);
+	beforeEach(inject(function(_gameService_) {
+		gameService = _gameService_;
+		spyOn(gameService, "getNext").and.callThrough();;
+		spyOn(gameService, "reset").and.callThrough();;
 	}));
 
 	beforeEach(inject(function($rootScope, $controller) {
@@ -47,12 +25,13 @@ describe("gameCtrl", function() {
 	}));
 
 	it("defaults", function() {
-		expect(scope.gameOver).toEqual(false);
-		expect(scope.isActive).toEqual(false);
+		expect(scope.gameOver).toBe(false);
+		expect(scope.isActive).toBe(false);
+		expect(scope.size).toEqual(30);
+		expect(scope.roundsPerSecond).toEqual(3);
+		expect(scope.round).toEqual(0);
 		expect(scope.buttonValue).toEqual("Play");
-		expect(scope.board).toBe(board);
-		expect(scope.indices).toEqual([0, 1, 2, 3, 4]);
-		expect(boardService.getBoards).toHaveBeenCalled();
+		expect(scope.rows).toBeDefined();
 	});
 
 	it("toggle buttonValue", function() {
@@ -66,30 +45,22 @@ describe("gameCtrl", function() {
 
 	it("resetBoard", function() {
 		scope.gameOver = true;
-		expect(scope.board.reset.calls.count()).toEqual(0);
+		expect(gameService.reset.calls.count()).toEqual(0);
 
 		scope.resetBoard();
 
 		expect(scope.gameOver).toEqual(false);
 
-		expect(scope.board.reset).toHaveBeenCalled();
-		expect(scope.board.reset.calls.count()).toEqual(1);
+		expect(gameService.reset).toHaveBeenCalled();
+		expect(gameService.reset.calls.count()).toEqual(1);
 	});
 
 	it("changeCellState", function() {
 		scope.gameOver = true;
-		expect(scope.board.getCell.calls.count()).toEqual(0);
-		expect(cell.toggleIsAlive.calls.count()).toEqual(0);
 
 		scope.changeCellState(2, 3);
 
 		expect(scope.gameOver).toEqual(false);
-
-		expect(scope.board.getCell).toHaveBeenCalledWith(2, 3);
-		expect(scope.board.getCell.calls.count()).toEqual(1);
-
-		expect(cell.toggleIsAlive).toHaveBeenCalled();
-		expect(cell.toggleIsAlive.calls.count()).toEqual(1);
 	});
 
 	it("toggleActive", function() {
@@ -102,8 +73,7 @@ describe("gameCtrl", function() {
 		expect(scope.gameOver).toEqual(false);
 
 		expect(scope.gameOver).toEqual(false);
-		expect(scope.board.getNext).toHaveBeenCalled();
-		expect(scope.board.areAllCellsDead).toHaveBeenCalled();
+		expect(gameService.getNext).toHaveBeenCalled();
 	});
 
 });

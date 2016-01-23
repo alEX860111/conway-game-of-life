@@ -1,9 +1,11 @@
-angular.module("myapp", ["game.of.life.core"])
-	.controller("gameCtrl", ["$scope", "$timeout", "boardService", function($scope, $timeout, boardService) {
+angular.module("myapp", ["game"])
+	.controller("gameCtrl", ["$scope", "$timeout", "patterns", "gameService", function($scope, $timeout, patterns, gameService) {
 		$scope.gameOver = false;
 		$scope.isActive = false;
 		$scope.size = 30;
 		$scope.roundsPerSecond = 3;
+		$scope.round = 0;
+
 
 		$scope.$watch("roundsPerSecond", function() {
 			$scope.updateInterval = 1000 / $scope.roundsPerSecond;
@@ -13,10 +15,10 @@ angular.module("myapp", ["game.of.life.core"])
 			$scope.buttonValue = $scope.isActive ? "Pause" : "Play";
 		});
 
-		$scope.loadBoard = function(board) {
-			$scope.selectedBoard = board;
-			$scope.board = board.createBoard();
-			$scope.indices = _.range($scope.board.getSize());
+		$scope.loadPattern = function(pattern) {
+			$scope.selectedPattern = _.cloneDeep(pattern);
+			$scope.rows = $scope.selectedPattern.rows;
+			$scope.nextRows = _.cloneDeep($scope.rows);
 			$scope.gameOver = false;
 		};
 
@@ -37,9 +39,12 @@ angular.module("myapp", ["game.of.life.core"])
 			$scope.gameOver = false;
 			var loop = function() {
 				if ($scope.isActive) {
-					$scope.board = $scope.board.getNext();
-					$scope.gameOver = $scope.board.areAllCellsDead();
+					var tmpRows = $scope.rows;
+					$scope.gameOver = gameService.getNext($scope.rows, $scope.nextRows);
+					$scope.rows = $scope.nextRows;
+					$scope.nextRows = tmpRows;
 					$timeout(loop, $scope.updateInterval);
+					$scope.round++;
 				}
 			};
 			loop();
@@ -51,20 +56,21 @@ angular.module("myapp", ["game.of.life.core"])
 
 		$scope.changeCellState = function(rowIdx, colIdx) {
 			if (!$scope.isActive) {
-				$scope.selectedBoard = undefined;
-				$scope.board.getCell(rowIdx, colIdx).toggleIsAlive();
+				$scope.selectedPattern = undefined;
+				$scope.rows[rowIdx][colIdx] = !$scope.rows[rowIdx][colIdx];
 				$scope.gameOver = false;
 			}
 		};
 
 		$scope.resetBoard = function() {
-			$scope.selectedBoard = undefined;
-			$scope.board.reset();
+			$scope.selectedPattern = undefined;
+			gameService.reset($scope.rows);
 			$scope.gameOver = false;
+			$scope.round = 0;
 		};
 
-		$scope.boards = boardService.getBoards();
+		$scope.patterns = patterns;
 
-		$scope.loadBoard($scope.boards[0]);
+		$scope.loadPattern($scope.patterns[0]);
 
 	}]);
