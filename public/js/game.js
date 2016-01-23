@@ -15,8 +15,9 @@ angular.module("game", [])
 			return idx;
 		}
 
-		function getAliveCount(rows, rowIdx, colIdx, maxRowIdx, maxColIdx) {
-			return Number(rows[confineIndex(rowIdx, maxRowIdx)][confineIndex(colIdx, maxColIdx)]);
+		function getAliveCount(rows, rowIdx, colIdx) {
+			var row = rows[confineIndex(rowIdx, rows.length)];
+			return Number(row[confineIndex(colIdx, row.length)]);
 		}
 
 		return {
@@ -30,22 +31,19 @@ angular.module("game", [])
 			},
 			getNext: function(rows, nextRows) {
 				var gameOver = true;
-				let maxRowIdx = rows.length;
-				for (let rowIdx = 0; rowIdx < maxRowIdx; rowIdx++) {
-					let row = rows[rowIdx];
-					let maxColIdx = row.length;
-					for (let colIdx = 0; colIdx < maxColIdx; colIdx++) {
+				for (let rowIdx = 0; rowIdx < rows.length; rowIdx++) {
+					for (let colIdx = 0, row = rows[rowIdx]; colIdx < row.length; colIdx++) {
 						let numAliveNeighbors = 0;
-						numAliveNeighbors += getAliveCount(rows, rowIdx - 1, colIdx - 1, maxRowIdx, maxColIdx);
-						numAliveNeighbors += getAliveCount(rows, rowIdx - 1, colIdx, maxRowIdx, maxColIdx);
-						numAliveNeighbors += getAliveCount(rows, rowIdx - 1, colIdx + 1, maxRowIdx, maxColIdx);
+						numAliveNeighbors += getAliveCount(rows, rowIdx - 1, colIdx - 1);
+						numAliveNeighbors += getAliveCount(rows, rowIdx - 1, colIdx);
+						numAliveNeighbors += getAliveCount(rows, rowIdx - 1, colIdx + 1);
 
-						numAliveNeighbors += getAliveCount(rows, rowIdx, colIdx - 1, maxRowIdx, maxColIdx);
-						numAliveNeighbors += getAliveCount(rows, rowIdx, colIdx + 1, maxRowIdx, maxColIdx);
+						numAliveNeighbors += getAliveCount(rows, rowIdx, colIdx - 1);
+						numAliveNeighbors += getAliveCount(rows, rowIdx, colIdx + 1);
 
-						numAliveNeighbors += getAliveCount(rows, rowIdx + 1, colIdx - 1, maxRowIdx, maxColIdx);
-						numAliveNeighbors += getAliveCount(rows, rowIdx + 1, colIdx, maxRowIdx, maxColIdx);
-						numAliveNeighbors += getAliveCount(rows, rowIdx + 1, colIdx + 1, maxRowIdx, maxColIdx);
+						numAliveNeighbors += getAliveCount(rows, rowIdx + 1, colIdx - 1);
+						numAliveNeighbors += getAliveCount(rows, rowIdx + 1, colIdx);
+						numAliveNeighbors += getAliveCount(rows, rowIdx + 1, colIdx + 1);
 						var cellSurvives = survives(rows[rowIdx][colIdx], numAliveNeighbors);
 						if (cellSurvives) {
 							gameOver = false;
