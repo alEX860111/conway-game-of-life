@@ -3,9 +3,8 @@ angular.module("myapp", ["game"])
 		$scope.gameOver = false;
 		$scope.isActive = false;
 		$scope.size = 30;
-		$scope.roundsPerSecond = 3;
+		$scope.roundsPerSecond = 10;
 		$scope.round = 0;
-
 
 		$scope.$watch("roundsPerSecond", function() {
 			$scope.updateInterval = 1000 / $scope.roundsPerSecond;

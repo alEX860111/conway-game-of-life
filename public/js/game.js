@@ -23,8 +23,7 @@ angular.module("game", [])
 		return {
 			reset: function(rows) {
 				for (let rowIdx = 0; rowIdx < rows.length; rowIdx++) {
-					let row = rows[rowIdx];
-					for (let colIdx = 0; colIdx < row.length; colIdx++) {
+					for (let colIdx = 0, row = rows[rowIdx]; colIdx < row.length; colIdx++) {
 						row[colIdx] = false;
 					}
 				}

@@ -28,7 +28,7 @@ describe("gameCtrl", function() {
 		expect(scope.gameOver).toBe(false);
 		expect(scope.isActive).toBe(false);
 		expect(scope.size).toEqual(30);
-		expect(scope.roundsPerSecond).toEqual(3);
+		expect(scope.roundsPerSecond).toEqual(10);
 		expect(scope.round).toEqual(0);
 		expect(scope.buttonValue).toEqual("Play");
 		expect(scope.rows).toBeDefined();
