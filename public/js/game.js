@@ -28,7 +28,7 @@ angular.module("game", [])
 					}
 				}
 			},
-			getNext: function(rows, nextRows) {
+			evolve: function(rows, nextRows) {
 				var gameOver = true;
 				for (let rowIdx = 0; rowIdx < rows.length; rowIdx++) {
 					for (let colIdx = 0, row = rows[rowIdx]; colIdx < row.length; colIdx++) {

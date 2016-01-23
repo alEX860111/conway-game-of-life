@@ -44,6 +44,7 @@
 							<li ng-repeat="pattern in patterns track by $index" ng-click="loadPattern(pattern)"><a href="#">{{pattern.title}}</a></li>
 						</ul>
 					</div>
+					<button type="button" title="Reload" class="btn btn-lg btn-info" ng-click="loadPattern(selectedPattern)" ng-disabled="isActive"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span></button>
 					<button type="button" title="Clear" class="btn btn-lg btn-warning" ng-click="resetBoard()" ng-disabled="isActive"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
 					<button type="button" ng-attr-title="{{buttonValue}}" class="btn btn-lg" ng-class="{'btn-success': !isActive, 'btn-danger': isActive}" ng-click="toggleActive()" ng-disabled="gameOver"><span class="glyphicon" ng-class="{'glyphicon-play': !isActive, 'glyphicon-pause': isActive}" aria-hidden="true"></span></button>
 					<step-control min="1" max="30" step="1" value="roundsPerSecond" dec-title="Slower" inc-title="Faster" dec-class="glyphicon glyphicon-minus" inc-class="glyphicon glyphicon-plus"></step-control>

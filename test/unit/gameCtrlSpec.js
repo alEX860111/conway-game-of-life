@@ -12,7 +12,7 @@ describe("gameCtrl", function() {
 
 	beforeEach(inject(function(_gameService_) {
 		gameService = _gameService_;
-		spyOn(gameService, "getNext").and.callThrough();;
+		spyOn(gameService, "evolve").and.callThrough();;
 		spyOn(gameService, "reset").and.callThrough();;
 	}));
 
@@ -73,7 +73,7 @@ describe("gameCtrl", function() {
 		expect(scope.gameOver).toEqual(false);
 
 		expect(scope.gameOver).toEqual(false);
-		expect(gameService.getNext).toHaveBeenCalled();
+		expect(gameService.evolve).toHaveBeenCalled();
 	});
 
 });

@@ -6,6 +6,9 @@ angular.module("myapp", ["game"])
 		$scope.roundsPerSecond = 10;
 		$scope.round = 0;
 
+		$scope.rows = undefined;
+		var nextRows = undefined;
+
 		$scope.$watch("roundsPerSecond", function() {
 			$scope.updateInterval = 1000 / $scope.roundsPerSecond;
 		});
@@ -15,9 +18,9 @@ angular.module("myapp", ["game"])
 		});
 
 		$scope.loadPattern = function(pattern) {
-			$scope.selectedPattern = _.cloneDeep(pattern);
-			$scope.rows = $scope.selectedPattern.rows;
-			$scope.nextRows = _.cloneDeep($scope.rows);
+			$scope.selectedPattern = pattern;
+			$scope.rows = _.cloneDeep($scope.selectedPattern.rows);
+			nextRows = _.cloneDeep($scope.rows);
 			$scope.gameOver = false;
 		};
 
@@ -36,33 +39,32 @@ angular.module("myapp", ["game"])
 		function start() {
 			$scope.isActive = true;
 			$scope.gameOver = false;
-			var loop = function() {
-				if ($scope.isActive) {
-					var tmpRows = $scope.rows;
-					$scope.gameOver = gameService.getNext($scope.rows, $scope.nextRows);
-					$scope.rows = $scope.nextRows;
-					$scope.nextRows = tmpRows;
-					$timeout(loop, $scope.updateInterval);
-					$scope.round++;
-				}
-			};
-			loop();
+			play();
 		}
 
 		function stop() {
 			$scope.isActive = false;
 		}
 
+		function play() {
+			if ($scope.isActive) {
+				var tmpRows = $scope.rows;
+				$scope.gameOver = gameService.evolve($scope.rows, nextRows);
+				$scope.rows = nextRows;
+				nextRows = tmpRows;
+				$timeout(play, $scope.updateInterval);
+				$scope.round++;
+			}
+		}
+
 		$scope.changeCellState = function(rowIdx, colIdx) {
 			if (!$scope.isActive) {
-				$scope.selectedPattern = undefined;
 				$scope.rows[rowIdx][colIdx] = !$scope.rows[rowIdx][colIdx];
 				$scope.gameOver = false;
 			}
 		};
 
 		$scope.resetBoard = function() {
-			$scope.selectedPattern = undefined;
 			gameService.reset($scope.rows);
 			$scope.gameOver = false;
 			$scope.round = 0;
