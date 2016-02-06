@@ -1,3 +1,5 @@
+"use strict";
+
 angular.module("game")
 
 .factory("patterns", [function() {

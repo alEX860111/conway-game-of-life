@@ -1,3 +1,5 @@
+"use strict";
+
 angular.module("game")
 .factory("survives", [function() {
 	return function survives(state, numAliveNeighbors) {

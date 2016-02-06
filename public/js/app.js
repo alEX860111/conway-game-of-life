@@ -1,3 +1,5 @@
+"use strict";
+
 angular.module("myapp", ["game"])
 	.controller("gameCtrl", ["$scope", "$timeout", "patterns", "gameService", function($scope, $timeout, patterns, gameService) {
 		$scope.gameOver = false;

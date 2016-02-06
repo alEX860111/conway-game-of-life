@@ -1,7 +1,7 @@
+"use strict";
+
 angular.module("game", [])
 	.factory("gameService", ["survives", function(survives) {
-		"use strict";
-
 		function confineIndex(idx, size) {
 			const MIN_IDX = 0;
 			const MAX_IDX = size - 1;

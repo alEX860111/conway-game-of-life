@@ -50,7 +50,7 @@
 				</div>
 				<table class="board" ng-class="{'is-active': isActive}">
 					<tr ng-repeat="row in rows track by $index">
-						<td ng-repeat="col in row track by $index" class="field" ng-attr-style="width: {{size}}px; height: {{size}}px" ng-class="{'is-alive': rows[$parent.$index][$index]}" ng-click="changeCellState($parent.$index, $index)" ng-disabled="isActive"></td>
+						<td ng-repeat="col in row track by $index" class="field" ng-attr-style="width: {{size}}px; height: {{size}}px" ng-class="{'is-alive': rows[$parent.$index][$index]}" ng-click="changeCellState($parent.$index, $index)"></td>
 					</tr>
 				</table>
 			</div>
