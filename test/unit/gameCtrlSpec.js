@@ -13,7 +13,6 @@ describe("gameCtrl", function() {
 	beforeEach(inject(function(_gameService_) {
 		gameService = _gameService_;
 		spyOn(gameService, "evolve").and.callThrough();
-		spyOn(gameService, "clear").and.callThrough();
 	}));
 
 	beforeEach(inject(function($rootScope, $controller) {
@@ -41,18 +40,6 @@ describe("gameCtrl", function() {
 		scope.isActive = false;
 		scope.$apply();
 		expect(scope.buttonValue).toEqual("Play");
-	});
-
-	it("clear", function() {
-		scope.gameOver = true;
-		expect(gameService.clear.calls.count()).toEqual(0);
-
-		scope.clear();
-
-		expect(scope.gameOver).toEqual(false);
-
-		expect(gameService.clear).toHaveBeenCalled();
-		expect(gameService.clear.calls.count()).toEqual(1);
 	});
 
 	it("changeCellState", function() {

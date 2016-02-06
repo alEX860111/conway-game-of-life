@@ -83,5 +83,19 @@ angular.module("game")
 			[false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
 			[false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false]
 		]
+	}, {
+		title: "Empty",
+		rows: [
+			[false, false, false, false, false, false, false, false, false, false],
+			[false, false, false, false, false, false, false, false, false, false],
+			[false, false, false, false, false, false, false, false, false, false],
+			[false, false, false, false, false, false, false, false, false, false],
+			[false, false, false, false, false, false, false, false, false, false],
+			[false, false, false, false, false, false, false, false, false, false],
+			[false, false, false, false, false, false, false, false, false, false],
+			[false, false, false, false, false, false, false, false, false, false],
+			[false, false, false, false, false, false, false, false, false, false],
+			[false, false, false, false, false, false, false, false, false, false],
+		]
 	}];
 }]);

@@ -20,7 +20,7 @@
 		<div class="row">
 			<div class="col-xs-12">
 				<div class="page-header text-center">
-					<h1>Conway's Game Of Life&nbsp;<small>round {{round}}</small></h1>
+					<h1>Conway's Game Of Life&nbsp;<span class="label" ng-class="{'label-default': !gameOver, 'label-danger': gameOver}">round {{round}}</span></h1>
 				</div>
 			</div>
 			<div class="col-xs-12">
@@ -29,14 +29,13 @@
 						<div class="btn-group">
 							<div class="btn-group">
 								<button type="button" title="Load Pattern" class="btn btn-lg btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ng-disabled="isActive">
-									{{selectedPattern.title || 'Load Pattern'}}&nbsp;<span class="caret"></span>
+									{{activePatternTitle}}&nbsp;<span class="caret"></span>
 								</button>
 								<ul class="dropdown-menu">
 									<li ng-repeat="pattern in patterns track by $index" ng-click="loadPattern(pattern)"><a href="#">{{pattern.title}}</a></li>
 								</ul>
 							</div>
-							<button type="button" title="Reload" class="btn btn-lg btn-info" ng-click="loadPattern(selectedPattern)" ng-disabled="isActive"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span></button>
-							<button type="button" title="Clear" class="btn btn-lg btn-warning" ng-click="clear()" ng-disabled="isActive"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
+							<button type="button" title="Reset" class="btn btn-lg btn-warning" ng-click="reset()" ng-disabled="isActive"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span></button>
 							<button type="button" ng-attr-title="{{buttonValue}}" class="btn btn-lg" ng-class="{'btn-success': !isActive, 'btn-danger': isActive}" ng-click="toggleActive()" ng-disabled="gameOver"><span class="glyphicon" ng-class="{'glyphicon-play': !isActive, 'glyphicon-pause': isActive}" aria-hidden="true"></span></button>
 						</div>
 					</div>
@@ -46,7 +45,7 @@
 					</div>
 					<div class="form-group">
 						<label for="size">Zoom</label>
-						<input id="size" type="range" min="10" max="100" ng-model="size">
+						<input id="size" type="range" min="5" max="100" ng-model="size">
 					</div>
 				</div>
 				<table class="board" ng-class="{'is-active': isActive}">
@@ -54,9 +53,6 @@
 						<td ng-repeat="col in row track by $index" class="field" ng-attr-style="width: {{size}}px; height: {{size}}px" ng-class="{'is-alive': rows[$parent.$index][$index]}" ng-click="changeCellState($parent.$index, $index)" ng-disabled="isActive"></td>
 					</tr>
 				</table>
-			</div>
-			<div class="col-xs-12 col-sm-8 col-sm-offset-2">
-				<div class="alert alert-danger text-center" ng-show="gameOver" role="alert">Game Over</div>
 			</div>
 		</div>
 	</div>

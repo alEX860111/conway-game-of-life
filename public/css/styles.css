@@ -20,13 +20,8 @@
     border: 1px solid grey;
 }
 .board:not(.is-active) .field:hover {
-  background-color: black;
-}
-.board:not(.is-active) .field.is-alive:hover {
-  background-color: rgba(0,0,0,0.1);
-}
-.panel {
-  margin-top: 20px;
+  //background-color: black;
+  border: 2px solid #D9534F;
 }
 input {
   pointer-events: all !important;

@@ -21,19 +21,6 @@ describe("gameService", function() {
 		nextRows = _.cloneDeep(rows);
 	});
 
-	describe("clear", function() {
-		it("should set all cells to dead", function() {
-			gameService.clear(rows);
-			expect(rows).toEqual([
-				[false, false, false, false, false],
-				[false, false, false, false, false],
-				[false, false, false, false, false],
-				[false, false, false, false, false],
-				[false, false, false, false, false]
-			]);
-		});
-	});
-
 	describe("evolve", function() {
 		it("should return the next rows", function() {
 			var gameOver = gameService.evolve(rows, nextRows);

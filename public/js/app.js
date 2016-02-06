@@ -8,6 +8,7 @@ angular.module("myapp", ["game"])
 
 		$scope.rows = undefined;
 		var nextRows = undefined;
+		var startUpRows = undefined;
 
 		$scope.$watch("roundsPerSecond", function() {
 			$scope.updateInterval = 1000 / $scope.roundsPerSecond;
@@ -18,12 +19,16 @@ angular.module("myapp", ["game"])
 		});
 
 		$scope.loadPattern = function(pattern) {
-			$scope.selectedPattern = pattern;
-			$scope.rows = _.cloneDeep($scope.selectedPattern.rows);
+			$scope.activePatternTitle = pattern.title;
+			$scope.rows = _.cloneDeep(pattern.rows);
 			nextRows = _.cloneDeep($scope.rows);
 			$scope.gameOver = false;
 			$scope.round = 0;
 		};
+
+		$scope.patterns = patterns;
+
+		$scope.loadPattern($scope.patterns[0]);
 
 		$scope.$watch("gameOver", function() {
 			stop();
@@ -38,6 +43,9 @@ angular.module("myapp", ["game"])
 		};
 
 		function start() {
+			if ($scope.round === 0) {
+				startUpRows = _.cloneDeep($scope.rows);
+			}
 			$scope.isActive = true;
 			$scope.gameOver = false;
 			play();
@@ -62,17 +70,14 @@ angular.module("myapp", ["game"])
 			if (!$scope.isActive) {
 				$scope.rows[rowIdx][colIdx] = !$scope.rows[rowIdx][colIdx];
 				$scope.gameOver = false;
+				$scope.activePatternTitle = "Custom";
 			}
 		};
 
-		$scope.clear = function() {
-			gameService.clear($scope.rows);
+		$scope.reset = function() {
+			$scope.rows = startUpRows;
 			$scope.gameOver = false;
 			$scope.round = 0;
 		};
-
-		$scope.patterns = patterns;
-
-		$scope.loadPattern($scope.patterns[0]);
 
 	}]);
