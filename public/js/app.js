@@ -24,6 +24,7 @@ angular.module("myapp", ["game"])
 			$scope.activePatternTitle = pattern.title;
 			$scope.rows = _.cloneDeep(pattern.rows);
 			nextRows = _.cloneDeep($scope.rows);
+			startUpRows = _.cloneDeep($scope.rows);
 			$scope.gameOver = false;
 			$scope.round = 0;
 		};
