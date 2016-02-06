@@ -11,7 +11,6 @@ module.exports = function(config) {
 			"public/js/patterns.js",
 			"public/js/rules.js",
 			"public/js/app.js",
-			"public/js/stepControl.js",
 			"test/unit/**/*.js"
 		],
 

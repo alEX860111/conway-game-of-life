@@ -22,6 +22,7 @@ angular.module("myapp", ["game"])
 			$scope.rows = _.cloneDeep($scope.selectedPattern.rows);
 			nextRows = _.cloneDeep($scope.rows);
 			$scope.gameOver = false;
+			$scope.round = 0;
 		};
 
 		$scope.$watch("gameOver", function() {
