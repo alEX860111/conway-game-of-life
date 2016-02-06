@@ -20,7 +20,7 @@
 		<div class="row">
 			<div class="col-xs-12">
 				<div class="page-header text-center">
-					<h1>Conway's Game Of Life <small>round {{round}}</small></h1>
+					<h1>Conway's Game Of Life&nbsp;<small>round {{round}}</small></h1>
 				</div>
 			</div>
 			<div class="col-xs-12">
@@ -36,13 +36,13 @@
 								</ul>
 							</div>
 							<button type="button" title="Reload" class="btn btn-lg btn-info" ng-click="loadPattern(selectedPattern)" ng-disabled="isActive"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span></button>
-							<button type="button" title="Clear" class="btn btn-lg btn-warning" ng-click="resetBoard()" ng-disabled="isActive"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
+							<button type="button" title="Clear" class="btn btn-lg btn-warning" ng-click="clear()" ng-disabled="isActive"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
 							<button type="button" ng-attr-title="{{buttonValue}}" class="btn btn-lg" ng-class="{'btn-success': !isActive, 'btn-danger': isActive}" ng-click="toggleActive()" ng-disabled="gameOver"><span class="glyphicon" ng-class="{'glyphicon-play': !isActive, 'glyphicon-pause': isActive}" aria-hidden="true"></span></button>
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="speed">Speed</label>
-						<input id="speed" type="range" min="1" max="30" ng-model="roundsPerSecond">
+						<input id="speed" type="range" min="1" max="50" ng-model="roundsPerSecond">
 					</div>
 					<div class="form-group">
 						<label for="size">Zoom</label>

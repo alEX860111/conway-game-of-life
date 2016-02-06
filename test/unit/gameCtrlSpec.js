@@ -12,8 +12,8 @@ describe("gameCtrl", function() {
 
 	beforeEach(inject(function(_gameService_) {
 		gameService = _gameService_;
-		spyOn(gameService, "evolve").and.callThrough();;
-		spyOn(gameService, "reset").and.callThrough();;
+		spyOn(gameService, "evolve").and.callThrough();
+		spyOn(gameService, "clear").and.callThrough();
 	}));
 
 	beforeEach(inject(function($rootScope, $controller) {
@@ -43,16 +43,16 @@ describe("gameCtrl", function() {
 		expect(scope.buttonValue).toEqual("Play");
 	});
 
-	it("resetBoard", function() {
+	it("clear", function() {
 		scope.gameOver = true;
-		expect(gameService.reset.calls.count()).toEqual(0);
+		expect(gameService.clear.calls.count()).toEqual(0);
 
-		scope.resetBoard();
+		scope.clear();
 
 		expect(scope.gameOver).toEqual(false);
 
-		expect(gameService.reset).toHaveBeenCalled();
-		expect(gameService.reset.calls.count()).toEqual(1);
+		expect(gameService.clear).toHaveBeenCalled();
+		expect(gameService.clear.calls.count()).toEqual(1);
 	});
 
 	it("changeCellState", function() {

@@ -21,9 +21,9 @@ describe("gameService", function() {
 		nextRows = _.cloneDeep(rows);
 	});
 
-	describe("reset", function() {
-		it("should reset all cells", function() {
-			gameService.reset(rows);
+	describe("clear", function() {
+		it("should set all cells to dead", function() {
+			gameService.clear(rows);
 			expect(rows).toEqual([
 				[false, false, false, false, false],
 				[false, false, false, false, false],

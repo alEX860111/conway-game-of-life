@@ -65,8 +65,8 @@ angular.module("myapp", ["game"])
 			}
 		};
 
-		$scope.resetBoard = function() {
-			gameService.reset($scope.rows);
+		$scope.clear = function() {
+			gameService.clear($scope.rows);
 			$scope.gameOver = false;
 			$scope.round = 0;
 		};
