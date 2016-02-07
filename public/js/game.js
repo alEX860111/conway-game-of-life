@@ -3,8 +3,8 @@
 angular.module("game", [])
 	.factory("gameService", ["survives", function(survives) {
 		function confineIndex(idx, size) {
-			const MIN_IDX = 0;
-			const MAX_IDX = size - 1;
+			var MIN_IDX = 0;
+			var MAX_IDX = size - 1;
 
 			if (idx > MAX_IDX) {
 				return MIN_IDX;
@@ -23,9 +23,9 @@ angular.module("game", [])
 		return {
 			evolve: function(rows, nextRows) {
 				var gameOver = true;
-				for (let rowIdx = 0; rowIdx < rows.length; rowIdx++) {
-					for (let colIdx = 0, row = rows[rowIdx]; colIdx < row.length; colIdx++) {
-						let numAliveNeighbors = 0;
+				for (var rowIdx = 0; rowIdx < rows.length; rowIdx++) {
+					for (var colIdx = 0, row = rows[rowIdx]; colIdx < row.length; colIdx++) {
+						var numAliveNeighbors = 0;
 						numAliveNeighbors += getAliveCount(rows, rowIdx - 1, colIdx - 1);
 						numAliveNeighbors += getAliveCount(rows, rowIdx - 1, colIdx);
 						numAliveNeighbors += getAliveCount(rows, rowIdx - 1, colIdx + 1);
