@@ -5,7 +5,9 @@ angular.module("myapp", ["game"])
 		$scope.gameOver = false;
 		$scope.isActive = false;
 		$scope.size = 30;
+
 		$scope.roundsPerSecond = 10;
+		$scope.updateInterval = undefined;
 		$scope.round = 0;
 
 		$scope.rows = undefined;

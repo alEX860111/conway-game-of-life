@@ -2,8 +2,6 @@ describe("gameCtrl", function() {
 
 	var gameService;
 
-	var $interval;
-
 	var scope;
 
 	beforeEach(function() {
@@ -31,6 +29,7 @@ describe("gameCtrl", function() {
 		expect(scope.round).toEqual(0);
 		expect(scope.buttonValue).toEqual("Play");
 		expect(scope.rows).toBeDefined();
+		expect(scope.updateInterval).toEqual(100);
 	});
 
 	it("toggle buttonValue", function() {
@@ -44,10 +43,12 @@ describe("gameCtrl", function() {
 
 	it("changeCellState", function() {
 		scope.gameOver = true;
+		scope.activePatternTitle = "something";
 
 		scope.changeCellState(2, 3);
 
 		expect(scope.gameOver).toEqual(false);
+		expect(scope.activePatternTitle).toEqual("Custom");
 	});
 
 	it("toggleActive", function() {
@@ -59,7 +60,6 @@ describe("gameCtrl", function() {
 		expect(scope.isActive).toEqual(true);
 		expect(scope.gameOver).toEqual(false);
 
-		expect(scope.gameOver).toEqual(false);
 		expect(gameService.evolve).toHaveBeenCalled();
 	});
 
